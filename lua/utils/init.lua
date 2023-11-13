@@ -15,7 +15,8 @@ local Util = require("lazyvim.util")
 M.safe_keymap_set = vim.deepcopy(Util.safe_keymap_set)
 
 -- 重写按键映射函数实现保存默认映射表
-function Util.safe_keymap_set(mode, lhs, rhs, opts)
+function Util.safe_keymap_sett(mode, lhs, rhs, opts)
+  print("xxx")
   --M.safe_keymap_set(mode, lhs, rhs, opts)
   if not M.plugins_mappings then
     M.plugins_mappings = M.empty_map_table()

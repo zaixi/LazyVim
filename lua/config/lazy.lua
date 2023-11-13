@@ -6,13 +6,23 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+-- hook lazy.Plugin.Spec:normalize 劫持按键
 require("utils.lazy")
+-- init custom keys
 require("utils.replace_keys").init_replace_keys()
+-- hook LazyVim.util.safe_keymap_set 劫持按键
+local function lazyvim_custom()
+  local Util = require("lazyvim.util")
+  local utils = require("utils.replace_keys")
+
+  utils.default_safe_keymap_set = vim.deepcopy(Util.safe_keymap_set)
+  Util.safe_keymap_set = utils.safe_keymap_set
+end
 
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    { "LazyVim/LazyVim", import = "lazyvim.plugins", init = lazyvim_custom },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- { import = "lazyvim.plugins.extras.lang.json" },

@@ -2,7 +2,7 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-require("utils")
+--require("utils")
 --if true then
 --  return {}
 --end
@@ -24,7 +24,7 @@ opt.writebackup = false -- 保存时不备份
 opt.swapfile = false -- 禁用交换文件
 opt.cmdheight = 2 -- neovim命令行中有更多空间用于显示消息
 opt.updatetime = 300 -- 更快完成,默认为4000毫秒,更新时间较长会导致明显的延迟和糟糕的用户体验
-opt.shortmess = "c" -- 不要将消息传递到| ins完成菜单|。
+--opt.shortmess = "c" -- 不要将消息传递到| ins完成菜单|。
 opt.ttimeout = true -- 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
 opt.ttimeoutlen = 100 -- 功能键超时检测(毫秒)
 opt.timeoutlen = 400

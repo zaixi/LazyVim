@@ -246,5 +246,5 @@ map.general.n = {
 
 }
 
-utils.set_mappings(map.general)
+--utils.set_mappings(map.general)
 return M
