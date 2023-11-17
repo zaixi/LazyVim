@@ -18,9 +18,7 @@ M.safe_keymap_set = vim.deepcopy(Util.safe_keymap_set)
 function Util.safe_keymap_sett(mode, lhs, rhs, opts)
   print("xxx")
   --M.safe_keymap_set(mode, lhs, rhs, opts)
-  if not M.plugins_mappings then
-    M.plugins_mappings = M.empty_map_table()
-  end
+  if not M.plugins_mappings then M.plugins_mappings = M.empty_map_table() end
   local modes = type(mode) == "string" and { mode } or mode
   if #modes > 0 then
     opts = opts or {}
@@ -75,15 +73,9 @@ function M.set_mappings(map_table, base)
           keymap_opts = vim.tbl_deep_extend("force", keymap_opts, options.opts or {})
         end
         if not cmd or keymap_opts.name then -- if which-key mapping, queue it
-          if not keymap_opts.name then
-            keymap_opts.name = keymap_opts.desc
-          end
-          if not M.which_key_queue then
-            M.which_key_queue = {}
-          end
-          if not M.which_key_queue[mode] then
-            M.which_key_queue[mode] = {}
-          end
+          if not keymap_opts.name then keymap_opts.name = keymap_opts.desc end
+          if not M.which_key_queue then M.which_key_queue = {} end
+          if not M.which_key_queue[mode] then M.which_key_queue[mode] = {} end
           M.which_key_queue[mode][keymap] = keymap_opts
         else -- if not which-key mapping, set it
           vim.keymap.set(mode, keymap, cmd, keymap_opts)

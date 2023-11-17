@@ -1,15 +1,4 @@
---- ### AstroNvim Utilities
---
--- Various utility functions to use within AstroNvim and user configurations.
---
--- This module can be loaded with `local utils = require "astronvim.utils"`
---
--- @module astronvim.utils
--- @copyright 2022
--- @license GNU General Public License v3.0
-
 local M = {}
-
 
 --复制按键映射表初始化函数，便于其他函数换了框架也能使用
 --- Get an empty table of mappings with a key for each map mode
@@ -27,63 +16,81 @@ function M.empty_map_table()
   return maps
 end
 
--- 重写按键映射函数实现保存默认映射表
-function M.safe_keymap_set(mode, lhs, rhs, opts)
-  print("xxxa")
-  M.default_safe_keymap_set(mode, lhs, rhs, opts)
-  if not M.plugins_mappings then
-    M.plugins_mappings = M.empty_map_table()
-  end
+-- 保存需要删除的映射
+function M.del_keymap(keymap)
+  local lhs = keymap[1]
+  local desc = keymap[2] or true
+  local mode = keymap.mode or {"n"}
   local modes = type(mode) == "string" and { mode } or mode
-  if #modes > 0 then
-    opts = opts or {}
 
-    local keymap = {}
-    keymap[1] = rhs
-    if opts["desc"] then
-      keymap[2] = opts["desc"]
-      opts["desc"] = nil
-    end
-    keymap["opts"] = opts
+  if #modes > 0 then
     for _, mode_single in pairs(modes) do
-      M.plugins_mappings[mode_single][lhs] = keymap
+      M.del_mappings[mode_single][lhs] = desc
     end
   end
 end
 
+-- 重写按键映射函数实现保存默认映射表
+function M.safe_keymap_set(mode, lhs, rhs, opts)
+    local spec = { [1] = "default_key", keys = {}}
+    spec.keys[1] = opts or {}
+    local key = spec.keys[1]
+    key[1] = lhs
+    key[2] = rhs
+    key.mode = mode
+    M.hook_keys(spec)
+    for _, keymap in ipairs(spec.keys) do
+        mode = keymap.mode
+        lhs = keymap[1]
+        rhs = keymap[2]
+        keymap.mode = nil
+        keymap[1] = nil
+        keymap[2] = nil
+        M.default_safe_keymap_set(mode, lhs, rhs, keymap)
+    end
+end
+
 function M.hook_replace_key(spec, mode, index, key)
+    local del_desc = M.del_mappings[mode][key[1]] or nil
     local replace = M.replace_keys[mode][key[1]] or nil
+    local back_key = vim.deepcopy(spec.keys[index])
+
+    if del_desc == true or (del_desc == back_key.desc and del_desc ~= nil) then
+      return
+    end
     -- 替换表存在这个映射
     --print(vim.inspect(spec.keys[index]))
     --print(vim.inspect(M.replace_keys[mode]))
     --print(vim.inspect(key))
     if replace then
+        back_key.desc = replace.custom.desc
+        back_key[1] = replace.custom.lhs
+        back_key.mode = mode
+        if replace.custom.rhs then back_key[2] = vim.deepcopy(replace.custom.rhs) end
         -- 替换表是删除
         if replace.custom.del == true then
-            spec.keys[index] = nil
             M.replace_keys_used[mode][key[1]] = replace
-            M.replace_keys[mode][key[1]] = nil
         -- 替换表和映射描述一致就替换
         elseif key.desc == replace.default.desc then
             M.replace_keys_used[mode][key[1]] = replace
-            spec.keys[index].desc = replace.custom.desc
-            spec.keys[index][1] = replace.custom.lhs
-            if replace.custom.rhs then spec.keys[index][2] = vim.deepcopy(replace.custom.rhs) end
-            M.replace_keys[mode][key[1]] = nil
+            table.insert(spec.replace_keys, back_key)
         -- 替换表和映射描述不一致就报错
         else
             print(spec[1], "replace map error: ", vim.inspect(key), replace.default.desc)
         end
     else
         -- 不存在替换表就报错
-        print(spec[1], "no replace map: ", vim.inspect(key))
+        --print(spec[1], "no replace map: ", vim.inspect(key))
+        M.default_keys = M.default_keys or M.empty_map_table()
+        back_key["plug"] = spec[1]
+        M.default_keys[mode][key[1]] = vim.tbl_extend("force", M.default_keys[mode][key[1]] or {}, back_key)
     end
 end
 
 function M.hook_keys(spec)
     -- 存在映射表就尝试替换
   if type(spec["keys"]) == "table" then
-    spec.replace_keys = {}
+    if spec.replace_keys == nil then spec.replace_keys = {} end
     -- 遍历单个插件的每个映射
     for index, key in pairs(spec.keys) do
         local modes = key.mode or {"n"}
@@ -92,21 +99,20 @@ function M.hook_keys(spec)
             M.hook_replace_key(spec, mode_single, index, key)
         end
     end
+    spec.keys = spec.replace_keys
   elseif spec["keys"] then
     if spec[1] ~= "echasnovski/mini.surround" then
-      print(vim.inspect(spec))
+      print(spec[1].. "keys is function", vim.inspect(spec))
     end
   end
   return spec
 end
 
 function M.init_replace_keys()
-  --local Util = require("lazy.core.util")
-  --local Plugin = require("lazy.core.plugin")
-  --local utils = require("utils.replace_keys")
-
     M.replace_keys = M.empty_map_table()
     M.replace_keys_used = M.empty_map_table()
+    M.del_mappings = M.empty_map_table()
+    M.default_keys = nil
     require("config.keys")
 end
 
@@ -132,6 +138,33 @@ function M.add_replace_keys(custom_keys, default_keys)
     else
       M.replace_keys[mode_single][default.lhs] = { default = default, custom = custom }
     end
+    end
+end
+
+function M.show_keys()
+    local not_use_keys = nil
+    local have_default_keys = nil
+    for mode, keys in pairs(M.replace_keys) do
+        for index, _ in pairs(keys) do
+            if M.replace_keys_used[mode][index] == nil then
+                not_use_keys = M.empty_map_table()
+                not_use_keys[mode][index] = M.replace_keys[mode][index]
+            end
+        end
+    end
+    if type(not_use_keys) == "table" then
+        vim.notify("don't use replace keys in :" .. vim.inspect(not_use_keys), vim.log.levels.WARN)
+    end
+
+    for mode, keys in pairs(M.default_keys or {}) do
+        for _, _ in pairs(keys) do
+            have_default_keys = have_default_keys or {}
+            have_default_keys[mode] = keys
+            break
+        end
+    end
+    if have_default_keys then
+        vim.notify("don't replace default keys in :" .. vim.inspect(have_default_keys), vim.log.levels.WARN)
     end
 end
 

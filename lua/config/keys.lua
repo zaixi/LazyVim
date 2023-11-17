@@ -97,7 +97,5 @@ map({lhs = "<leader>qs", desc = "Restore Session"}, {"<leader>qs", "Restore Sess
 map({lhs = "<leader>ql", desc = "Restore Last Session"}, {"<leader>ql", "Restore Last Session"})
 map({lhs = "<leader>qd", desc = "Don't Save Current Session"}, {"<leader>qd", "Don't Save Current Session"})
 
-
---map({lhs = "", desc = ""}, {""})
---map({lhs = "", desc = ""}, {""})
---map(nil, {""})
+map({lhs = "<leader>uE", desc = "Edgy Select Window"}, {"<leader>uE", "Edgy Select Window"})
+map({lhs = "<leader>ue", desc = "Edgy Toggle"}, {"<leader>ue", "Edgy Toggle"})
