@@ -6,6 +6,10 @@
 vim.cmd("source " .. vim.fn.stdpath("config") .. "/lua/config/edit.vim")
 -- }}}
 
+if true then
+    return
+end
+
 require("config.disable_key")
 
 local Util = require("lazyvim.util")
