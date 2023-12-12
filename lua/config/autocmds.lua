@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "LazyVimKeymaps",
   callback = function()
         require("utils.replace_keys").show_keys()
+        require("utils.replace_keys").which_key_register_name()
   end,
 })
 

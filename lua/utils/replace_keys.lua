@@ -48,6 +48,12 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
         keymap[2] = nil
         M.default_safe_keymap_set(mode, lhs, rhs, keymap)
     end
+    if not M.user_map_done then
+        for _, map in pairs(M.user_keys) do
+            vim.keymap.set(map.modes, map.lhs, map.rhs, map.opts)
+        end
+        M.user_map_done = true
+    end
 end
 
 function M.hook_replace_key(spec, mode, index, key)
@@ -101,7 +107,7 @@ function M.hook_keys(spec)
     end
     spec.keys = spec.replace_keys
   elseif spec["keys"] then
-    if spec[1] ~= "echasnovski/mini.surround" then
+    if spec[1] ~= "echasnovski/mini.surround" and spec[1] ~= "ggandor/flit.nvim" then
       print(spec[1].. "keys is function", vim.inspect(spec))
     end
   end
@@ -112,7 +118,10 @@ function M.init_replace_keys()
     M.replace_keys = M.empty_map_table()
     M.replace_keys_used = M.empty_map_table()
     M.del_mappings = M.empty_map_table()
+    M.key_group_name = {}
+    M.key_group_name["mode"] = { "n", "v" }
     M.default_keys = nil
+    M.user_keys = {}
     require("config.keys")
 end
 
@@ -141,6 +150,35 @@ function M.add_replace_keys(custom_keys, default_keys)
     end
 end
 
+function M.def_map(lhs, rhs, desc, opt)
+    local modes = nil
+    local opts = nil
+    if opt == nil or type(opt) == "string"  then
+        opts = {}
+        modes = type(opt) == "string" and { opt } or {"n"}
+    elseif type(opt) == "table" then
+        if opt[1] then
+            modes = opt
+            opts = {}
+        else
+            modes = opt.mode or {"n"}
+            opts = opt
+        end
+    end
+
+    opts.mode = nil
+    opts["desc"] = desc
+    if rhs then
+        table.insert(M.user_keys, {modes = modes, lhs = lhs, rhs = rhs, opts = opts})
+    else
+        if M.key_group_name["lhs"] then
+            print(("%s name conflict: %s || %s").format(lhs, M.key_group_name["lhs"], desc))
+        else
+            M.key_group_name[lhs] = { name = desc }
+        end
+    end
+end
+
 function M.show_keys()
     local not_use_keys = nil
     local have_default_keys = nil
@@ -166,6 +204,12 @@ function M.show_keys()
     if have_default_keys then
         vim.notify("don't replace default keys in :" .. vim.inspect(have_default_keys), vim.log.levels.WARN)
     end
+end
+
+function M.which_key_register_name()
+    local wk = require("which-key")
+    print(vim.inspect(M.key_group_name))
+    wk.register(M.key_group_name)
 end
 
 return M

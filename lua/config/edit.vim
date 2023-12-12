@@ -243,18 +243,90 @@ function! ToggleMouseCopy() abort
     set nonumber
     set nolist
     set wrap
-    if g:indentLine_enable
-        IndentBlanklineToggle
-    endif
+        IBLToggle
   else
     let s:copy_enable = 1
     let &number = s:number
     let &signcolumn = s:signcolumn
     let &list = s:list
     let &wrap = s:wrap
-    if g:indentLine_enable
-        IndentBlanklineToggle
-    endif
+        IBLToggle
   endif
 endfunction
 " }}}
+
+if has('nvim')
+  function! Is_float(winid) abort
+    if a:winid > 0 && exists('*nvim_win_get_config')
+      try
+        return has_key(nvim_win_get_config(a:winid), 'col')
+      catch
+        return 0
+      endtry
+    else
+      return 0
+    endif
+  endfunction
+else
+  function! Is_float(winid) abort
+    if a:winid > 0 && exists('*popup_getoptions')
+      try
+        return has_key(popup_getoptions(a:winid), 'col')
+      catch /^Vim\%((\a\+)\)\=:E993/
+        return 0
+      endtry
+    else
+      return 0
+    endif
+  endfunction
+endif
+
+fu! SmartClose() abort
+    let g:spacevim_smartcloseignorewin     = ['__Tagbar__' , 'vimfiler:default']
+    let g:spacevim_smartcloseignoreft      = [
+      \ 'neo-tree',
+      \ 'edgy',
+      \ 'Outline',
+      \ 'vimfiler',
+      \ 'defx',
+      \ 'NvimTree',
+      \ 'SpaceVimQuickFix',
+      \ 'HelpDescribe',
+      \ 'VebuggerShell',
+      \ 'VebuggerTerminal',
+      \ ]
+  let ignorewin = get(g:,'spacevim_smartcloseignorewin',[])
+  let ignoreft = get(g:, 'spacevim_smartcloseignoreft',[])
+  let buf_name = bufname(winbufnr(winnr()))
+  let current_buf_num = 0
+  let total_buf_num = 0
+  let num = winnr('$')
+  for i in range(1,num)
+    if index(ignorewin , bufname(winbufnr(i))) != -1 || index(ignoreft, getbufvar(bufname(winbufnr(i)),'&filetype')) != -1
+      let num = num - 1
+    elseif getbufvar(winbufnr(i),'&buftype') ==# 'quickfix'
+      let num = num - 1
+    elseif getwinvar(i, '&previewwindow') == 1 && winnr() !=# i
+      let num = num - 1
+    elseif exists('*win_getid') && Is_float(win_getid(i))
+      " in vim winnr('$') do not include popup.
+      let num = num - 1
+  else
+      let total_buf_num = total_buf_num + 1
+      if bufname(winbufnr(i)) ==# buf_name
+          let current_buf_num = current_buf_num + 1
+      endif
+  endif
+  endfor
+  if num == 1
+      if total_buf_num != 1
+          bd
+      endif
+  else
+      if current_buf_num == 1
+          bd
+      else
+          quit
+      endif
+  endif
+endfunction

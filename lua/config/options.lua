@@ -32,7 +32,7 @@ opt.timeoutlen = 400
 opt.winaltkeys = "no" -- Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 opt.wrap = false -- 关闭长行自动折行
 opt.hidden = true -- 允许在有未保存的修改时切换缓冲区
-opt.iskeyword = "_,@,%,#" -- 以下字符被视为单词的一部分
+opt.iskeyword = "@,48-57,_,192-255,_,@,%,#" -- 以下字符被视为单词的一部分
 
 opt.ruler = true -- 显示光标位置
 opt.laststatus = 3 -- 全局状态栏
@@ -43,7 +43,7 @@ opt.relativenumber = false -- 设置相对行号
 opt.numberwidth = 2 -- 将行号列宽设置为2{default 4}
 opt.cursorcolumn = true -- 高亮光标所在列
 opt.cursorline = true -- 高亮光标所在行
-opt.scrolloff = 8 -- 光标移动到顶部和底部时保持几行距离
+opt.scrolloff = 4 -- 光标移动到顶部和底部时保持几行距离
 opt.sidescrolloff = 8 -- 光标左右两侧保留的最少屏幕列数
 
 ------------------------------------------------------------
@@ -91,6 +91,7 @@ opt.fillchars = { eob = " " }
 opt.smarttab = true
 --- 行首的 <Tab> 根据 'shiftwidth' 插入或删除空白
 opt.shiftwidth = 4 -- 缩进宽度
+opt.softtabstop = 4
 opt.expandtab = true -- 将制表符转换为空格
 opt.tabstop = 4 -- 将 TAB 显示成多少宽度
 opt.autoindent = true -- 自动缩进
