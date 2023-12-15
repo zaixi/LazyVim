@@ -2,6 +2,7 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         opts = function(_, opts)
+            local actions = require "telescope.actions"
             local user_opts = {
                 defaults = {
                     prompt_prefix = " ",
@@ -9,6 +10,12 @@ return {
                     mappings = {
                         i = {
                             ['<c-e>'] = require('telescope.actions.layout').toggle_preview,
+                            ["<M-h>"] = actions.results_scrolling_left,
+                            ["<M-l>"] = actions.results_scrolling_right,
+                            ["<C-h>"] = actions.preview_scrolling_left,
+                            ["<C-l>"] = actions.preview_scrolling_right,
+                            ["<C-f>"] = actions.preview_scrolling_down,
+                            ["<C-b>"] = actions.preview_scrolling_up,
                         }
                     },
                     sorting_strategy = "ascending",

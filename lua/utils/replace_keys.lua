@@ -118,6 +118,7 @@ function M.init_replace_keys()
     M.replace_keys = M.empty_map_table()
     M.replace_keys_used = M.empty_map_table()
     M.del_mappings = M.empty_map_table()
+    M.check_keys = M.empty_map_table()
     M.key_group_name = {}
     M.key_group_name["mode"] = { "n", "v" }
     M.default_keys = nil
@@ -204,11 +205,33 @@ function M.show_keys()
     if have_default_keys then
         vim.notify("don't replace default keys in :" .. vim.inspect(have_default_keys), vim.log.levels.WARN)
     end
+
+    -- check def_map conflict
+    for _, map in pairs(M.user_keys) do
+        for _, mode in pairs(map.modes) do
+            if M.check_keys[mode][map.lhs] == nil then
+                M.check_keys[mode][map.lhs] = true
+            else
+                vim.notify(map.lhs .. " mapping conflict!", vim.log.levels.WARN)
+            end
+        end
+    end
+
+    -- check replace_keys conflict
+    for mode, keys in pairs(M.replace_keys) do
+        for _, key in pairs(keys) do
+            if M.check_keys[mode][key.custom.lhs] == nil then
+                M.check_keys[mode][key.custom.lhs] = true
+            else
+                vim.notify(key.custom.lhs .. " replace mapping conflict!", vim.log.levels.WARN)
+            end
+        end
+    end
+
 end
 
 function M.which_key_register_name()
     local wk = require("which-key")
-    print(vim.inspect(M.key_group_name))
     wk.register(M.key_group_name)
 end
 

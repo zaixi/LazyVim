@@ -19,7 +19,8 @@ return {
         "folke/noice.nvim",
         opts = {
             cmdline = {
-                enabled = false, -- enables the Noice cmdline UI
+                enabled = true, -- enables the Noice cmdline UI
+                view = "cmdline",
             }
         }
     },
@@ -89,14 +90,20 @@ return {
             require("translate").setup(options)
         end
     },
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        config = function()
+            local options = {
+                 default_mappings = false,
+            }
+            require'marks'.setup(options)
+        end
+    },
     -- vim 中文文档
     {"yianwillis/vimcdoc", event = "BufRead",},
     -- sudo 读写文件
     {"lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead"}},
-    -- 轻松重新排列
-    {"sindrets/winshift.nvim", cmd = 'WinShift '},
-    -- 在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转或交换位置
-    {'t9md/vim-choosewin', cmd = {'ChooseWin', 'ChooseWinSwap'}},
     -- }}}
     -- lualine integration
     {
@@ -138,31 +145,41 @@ return {
                 changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
             },
             current_line_blame_formatter = '<abbrev_sha>: <author>, <author_time:%Y-%m-%d> - <summary>',
-            on_attach = function(buffer)
-                local gs = package.loaded.gitsigns
-
-                local function map(mode, l, r, desc)
-                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-                end
-
-                -- stylua: ignore start
-                map("n", "]h", gs.next_hunk, "Next Hunk")
-                map("n", "[h", gs.prev_hunk, "Prev Hunk")
-                map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-                map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-                map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-                map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-                map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-                map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
-                map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-                map("n", "<leader>ghd", function() vim.wo.diff=false gs.diffthis() end, "Diff This")
-                map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
-                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-            end,
+            on_attach = function() end,
         },
     },
+    --{
+    --    "folke/edgy.nvim",
+    --    opts = function(_, opts)
+    --        opts.keys["<A-Left>"]  = vim.deepcopy(opts.keys["<c-left>"])
+    --        opts.keys["<A-Right>"] = vim.deepcopy(opts.keys["<c-Right>"])
+    --        opts.keys["<A-Up>"]    = vim.deepcopy(opts.keys["<c-Up>"])
+    --        opts.keys["<A-Down>"]  = vim.deepcopy(opts.keys["<c-Down>"])
+    --        opts.keys["<C-Right>"] = nil
+    --        opts.keys["<C-Left>"]  = nil
+    --        opts.keys["<C-Up>"]    = nil
+    --        opts.keys["<C-Down>"]  = nil
+    --    end,
+    --},
     -- 在驼峰式和 Snek 式（以及 kebab 式）之间转换
     {"nicwest/vim-camelsnek", cmd = {"Snek", "Camel", "CamelB", "Kebab", "Screm"}},
+    {
+        'echasnovski/mini.align',
+        event = "VeryLazy",
+        opts = function ()
+            return {
+                mappings = {
+                    start = '',
+                    start_with_preview = '<leader>ca',
+                },
+            }
+        end,
+        --config = function ()
+
+        --    require("mini.align").setup()
+        --end
+    },
+    --{"YacineDo/mc.nvim", event = "VeryLazy"},
 
   --- }}}
 }
