@@ -52,7 +52,8 @@ map({lhs = "<leader>uL", "LazyVim Changelog"}, { "<leader>L", "LazyVim Changelog
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map({lhs = "<leader>ur", desc = "重绘/清除"}, {"<leader>ur", "Redraw / clear hlsearch / diff update"})
-map({ lhs = "<leader>uC", desc = "   查找主题和预览" }, { "<leader>uC", "Colorscheme with preview" })
+map({lhs = "<leader>uC", desc = "   查找主题和预览" }, { "<leader>uC", "Colorscheme with preview" })
+map({lhs = "<leader>ub", desc = "切换背景色" }, { "<leader>ub", "Toggle Background" })
 map({lhs = "<leader>ut", desc = "切换Treesitter上下文"}, {"<leader>ut", "Toggle Treesitter Context"})
 map({lhs = "<leader>up", desc = "切换auto pairs"}, {"<leader>up", "Toggle auto pairs"})
 
@@ -130,7 +131,7 @@ map({lhs = "<leader>e", desc = "文件树(root dir)", rhs = "<leader>fl"}, {"<le
 map({lhs = "<leader>E", desc = "文件树(cwd)", rhs = "<leader>fL"}, {"<leader>E", "Explorer NeoTree (cwd)"})
 -- find
 def_map("<leader>fw", ":lua vim.cmd('Telescope find_files find_command=fdfind,--type,f,-p,' .. vim.fn.expand('<cfile>'))  <CR>", "查找光标下文件")
-def_map("<leader>fg", "<cmd>Telescope git_files  <CR>", "查找文件(git范围)")
+map({ lhs = "<leader>fg", desc = "查找文件(git范围)" }, { "<leader>fg", "Find Files (git-files)" })
 def_map("<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true  <CR>", "查找所有文件")
 map({lhs = "<C-p>", desc = "查找文件(root dir)"}, {"<leader><space>", "Find Files (root dir)"})
 map({ lhs = "<leader>fc", desc = "查找Config文件" }, { "<leader>fc", "Find Config File" })
@@ -199,8 +200,8 @@ map({ lhs = "<leader>sc", desc = "命令历史" }, { "<leader>sc", "Command Hist
 map({ lhs = "<leader>sC", desc = "命令" }, { "<leader>sC", "Commands" })
 map({ lhs = "<leader>sd", desc = "Document diagnostics" }, { "<leader>sd", "Document diagnostics" })
 map({ lhs = "<leader>sD", desc = "Workspace diagnostics" }, { "<leader>sD", "Workspace diagnostics" })
-map({ lhs = "<leader>sg", desc = "实时查找(root dir)" }, { "<leader>sg", "Grep (root dir)" })
-map({ lhs = "<leader>sG", desc = "实时查找(cwd)" }, { "<leader>sG", "Grep (cwd)" })
+map({ lhs = "<leader>sG", desc = "实时查找(root dir)" }, { "<leader>sg", "Grep (root dir)" })
+map({ lhs = "<leader>sg", desc = "实时查找(cwd)" }, { "<leader>sG", "Grep (cwd)" })
 map({ lhs = "<leader>sh", desc = "Help Pages" }, { "<leader>sh", "Help Pages" })
 map({ lhs = "<leader>sH", desc = "高亮组" }, { "<leader>sH", "Search Highlight Groups" })
 map({ lhs = "<leader>sk", desc = "查找keymap" }, { "<leader>sk", "Key Maps" })
@@ -210,10 +211,10 @@ map({ lhs = "<leader>sm", desc = "查找mark" }, { "<leader>sm", "Jump to Mark" 
 map({ lhs = "<leader>so", desc = "Options" }, { "<leader>so", "Options" })
 map({ lhs = "<leader>sR", desc = "Resume" }, { "<leader>sR", "Resume" })
 def_map("<leader><space>", "<leader>sw", "查找当前符号", {remap = true})
-map({ lhs = "<leader>sw", desc = "查找当前符号(root dir)" }, { "<leader>sw", "Word (root dir)" })
-map({ lhs = "<leader>sW", desc = "查找当前符号(cwd)" }, { "<leader>sW", "Word (cwd)" })
-map({ lhs = "<leader>sw", desc = "查找字符串(root dir)" }, { "<leader>sw", "Selection (root dir)", mode = "v" })
-map({ lhs = "<leader>sW", desc = "查找字符串(cwd)" }, { "<leader>sW", "Selection (cwd)", mode = "v" })
+map({ lhs = "<leader>sW", desc = "查找当前符号(root dir)" }, { "<leader>sw", "Word (root dir)" })
+map({ lhs = "<leader>sw", desc = "查找当前符号(cwd)" }, { "<leader>sW", "Word (cwd)" })
+map({ lhs = "<leader>sW", desc = "查找字符串(root dir)" }, { "<leader>sw", "Selection (root dir)", mode = "v" })
+map({ lhs = "<leader>sw", desc = "查找字符串(cwd)" }, { "<leader>sW", "Selection (cwd)", mode = "v" })
 -- noice
 map({lhs = "<leader>snl", desc = "Noice Last Message"}, {"<leader>snl", "Noice Last Message"})
 map({lhs = "<leader>snh", desc = "Noice History"}, {"<leader>snh", "Noice History"})

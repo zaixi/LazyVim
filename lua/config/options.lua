@@ -90,10 +90,10 @@ opt.fillchars = { eob = " " }
 -- 例子: shiftwidth=4 tabstop=8 softtabstop=4 noexpandtab 时, 按一次 TAB 是 4 个空格,按两次 TAB 是 TAB 符号,按3次 TAB 是一个 TAB 符号,加上 4 个空格
 opt.smarttab = true
 --- 行首的 <Tab> 根据 'shiftwidth' 插入或删除空白
-opt.shiftwidth = 4 -- 缩进宽度
-opt.softtabstop = 4
-opt.expandtab = true -- 将制表符转换为空格
-opt.tabstop = 4 -- 将 TAB 显示成多少宽度
+opt.shiftwidth = 8 -- 缩进宽度
+opt.softtabstop = 8
+opt.expandtab = false -- 将制表符转换为空格
+opt.tabstop = 8 -- 将 TAB 显示成多少宽度
 opt.autoindent = true -- 自动缩进
 opt.cindent = true -- 打开 C/C++ 语言缩进优化
 opt.smartindent = true -- make indenting smarter again
