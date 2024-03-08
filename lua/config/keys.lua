@@ -232,7 +232,7 @@ def_map("<leader>sr", '<esc><cmd>lua require("spectre").open_visual()<CR>', "正
 def_map("<leader>t", nil, '  切换')
 def_map("<leader>ts", "<cmd>Translate ZH -output=floating  <CR>", "翻译选择文本", "v")
 
-map({lhs = "<leader>tt", desc = "标签浏览"}, {"<leader>cs", "Symbols Outline"})
+map({lhs = "<leader>tt", desc = "标签浏览"}, {"<leader>cs", "Toggle Outline"})
 map({lhs = "<leader>tP", desc = "markdown预览"}, {"<leader>cp", "Markdown Preview"})
 
 def_map("<leader>tm", ":call ToggleMouseCopy() <CR>",  '切换鼠标粘贴')

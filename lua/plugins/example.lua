@@ -2,6 +2,16 @@
 -- stylua: ignore
 
 return {
+    -- 标签浏览
+    {
+        "hedyhli/outline.nvim",
+        opts = {
+            preview_window = {
+                auto_preview = true,
+                live = true,
+            }
+        }
+    },
 
     -- 快速移动
     {
@@ -169,7 +179,7 @@ return {
         opts = function ()
             return {
                 mappings = {
-                    start = '',
+                    start = 'ga',
                     start_with_preview = '<leader>ca',
                 },
             }
