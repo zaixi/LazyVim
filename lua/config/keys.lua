@@ -9,6 +9,7 @@ vim.cmd('source ' .. vim.fn.stdpath("config") .. '/lua/config/edit.vim')
 -- lazygit
 map({lhs = "<leader>gg", desc = "Lazygit (root dir)"}, { "<leader>gg", "Lazygit (root dir)" })
 map({lhs = "<leader>gG", desc = "Lazygit (cwd)" }, { "<leader>gG", "Lazygit (cwd)" })
+map({lhs = "<leader>gf", desc = "Lazygit current file history" }, { "<leader>gf", "Lazygit current file history" })
 -- git
 map({ lhs = "<leader>gc", desc = "commits" }, { "<leader>gc", "commits" })
 map({ lhs = "<leader>gs", desc = "status" }, { "<leader>gs", "status" })
@@ -139,11 +140,12 @@ map({ lhs = "<leader>ff", desc = "查找文件(root dir)" }, { "<leader>ff", "Fi
 map({ lhs = "<leader>fF", desc = "查找文件(cwd)" }, { "<leader>fF", "Find Files (cwd)" })
 map({ lhs = "<leader>fr", desc = "查找近期文件" }, { "<leader>fr", "Recent" })
 map({ lhs = "<leader>fR", desc = "查找近期文件(cwd)" }, { "<leader>fR", "Recent (cwd)" })
+map({ lhs = "<leader>fp", desc = "Projects" }, { "<leader>fp", "Projects" })
 -- }}}
 
 -- {{{ floating terminal
-map({lhs = "<leader>ft", desc = "  新终端(root dir)"}, { "<leader>ft", "Terminal (root dir)" })
-map({lhs = "<leader>fT", desc = "  新终端(cwd)" }, { "<leader>fT", "Terminal (cwd)" })
+map({lhs = "<leader>fT", desc = "  新终端(root dir)"}, { "<leader>ft", "Terminal (root dir)" })
+map({lhs = "<leader>ft", desc = "  新终端(cwd)" }, { "<leader>fT", "Terminal (cwd)" })
 map({lhs = "<c-/>", desc = "  新终端(root dir)"}, {"<c-/>", "Terminal (root dir)" })
 map({lhs = "<c-_>", desc = "  新终端(root dir)" }, { "<c-_>", "which_key_ignore" })
 map({lhs = "<C-/>", desc = "Hide Terminal" }, {"<C-/>", "Hide Terminal" , mode = "t"})

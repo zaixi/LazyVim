@@ -25,6 +25,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins", init = lazyvim_custom },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.util.project" },
     { import = "lazyvim.plugins.extras.ui.edgy" },
     { import = "lazyvim.plugins.extras.editor.outline" },
     { import = "lazyvim.plugins.extras.editor.navic" },
