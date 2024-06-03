@@ -10,6 +10,9 @@ vim.cmd('source ' .. vim.fn.stdpath("config") .. '/lua/config/edit.vim')
 map({lhs = "<leader>gg", desc = "Lazygit (root dir)"}, { "<leader>gg", "Lazygit (Root Dir)" })
 map({lhs = "<leader>gG", desc = "Lazygit (cwd)" }, { "<leader>gG", "Lazygit (cwd)" })
 map({lhs = "<leader>gf", desc = "Lazygit current file history" }, { "<leader>gf", "Lazygit Current File History" })
+map({lhs = "<leader>gl", desc = "Lazygit Log" }, { "<leader>gl", "Lazygit Log" })
+map({lhs = "<leader>gL", desc = "Lazygit Log (cwd)" }, { "<leader>gL", "Lazygit Log (cwd)" })
+del({"<leader>gB", "Git Browse"})
 -- git
 map({ lhs = "<leader>gc", desc = "commits" }, { "<leader>gc", "Commits" })
 map({ lhs = "<leader>gs", desc = "status" }, { "<leader>gs", "Status" })
@@ -25,7 +28,9 @@ def_map("<leader>ghu", "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk")
 def_map("<leader>ghR", "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer")
 def_map("<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk")
 def_map("<leader>gB", "<cmd>Gitsigns toggle_current_line_blame <CR>", "当前行 blame")
-def_map("<leader>gb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>", "Blame Line")
+--map("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
+--def_map("<leader>gb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>", "Blame Line")
+map({lhs = "<leader>gb", desc = "Blame Line"}, {"<leader>gb", "Git Blame Line"})
 def_map("<leader>gd", function() vim.wo.diff=false require'gitsigns'.diffthis() end, "Diff This")
 def_map("<leader>gD", function() vim.wo.diff=false require'gitsigns'.diffthis("~") end, "Diff This ~")
 def_map("ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk", { "o", "x" })
@@ -39,6 +44,8 @@ def_map("<leader>/b", "gb", "切换块注释", {remap = true, mode = {"n", "x"}}
 def_map("<leader>/f", ":Dox <CR>", "生成函数注释")
 def_map("<leader>/l", ":DoxLic <CR>", "生成许可证注释")
 def_map("<leader>/a", ":DoxAuthor <CR>", "生成作者注释")
+del({"gco",  "Add Comment Below"})
+del({"gcO",  "Add Comment Above"})
 -- }}}
 
 --   更新/ui {{{
@@ -61,6 +68,7 @@ map({lhs = "<leader>up", desc = "切换auto pairs"}, {"<leader>up", "Toggle Auto
 
 -- highlights under cursor
 map({lhs = "<leader>ui", desc = "Inspect Pos"}, { "<leader>ui", "Inspect Pos" })
+map({lhs = "<leader>uI", desc = "Inspect Tree"}, { "<leader>uI", "Inspect Tree" })
 
 -- toggle options
 map({lhs = "<leader>uf", desc = "切换自动格式化(global)"}, {  "<leader>uf", "Toggle Auto Format (Global)" })
@@ -101,7 +109,7 @@ map({lhs = "<leader>bt", desc = "Switch to Other Buffer" }, {"<leader>bb", "Swit
 --map({lhs = "<leader>`", desc = "Switch to Other Buffer" }, {"<leader>`", "Switch to Other Buffer" })
 del({"<leader>`", "Switch to Other Buffer"})
 map({lhs = "<leader>bd", desc = "删除Buffer"}, {"<leader>bd", "Delete Buffer"})
-map({lhs = "<leader>bD", desc = "删除Buffer(Force)"}, {"<leader>bD", "Delete Buffer (Force)"})
+map({lhs = "<leader>bD", desc = "删除Buffer(Force)"}, {"<leader>bD", "Delete Buffer and Window"})
 map({lhs = "<leader>bp", desc = "Toggle pin"}, {"<leader>bp", "Toggle Pin"})
 map({lhs = "<leader>bP", desc = "删除non-pinned buffers"}, {"<leader>bP", "Delete Non-Pinned Buffers"})
 map({lhs = "<leader>bo", desc = "删除其他buffers"}, {"<leader>bo", "Delete Other Buffers"})
@@ -195,7 +203,6 @@ map({ lhs = "<leader>ss", desc = "查找定义" }, { "<leader>ss", "Goto Symbol"
 map({ lhs = "<leader>sS", desc = "查找定义(Workspace)" }, { "<leader>sS", "Goto Symbol (Workspace)" })
 -- search
 def_map("<leader>se", "<cmd>Telescope <CR>", "Telescope")
-def_map("<leader>sq", "<cmd>Telescope quickfix <CR>", "quickfix查找")
 map({ lhs = '<leader>s"', desc = "寄存器" }, { '<leader>s"', "Registers" })
 map({ lhs = "<leader>sa", desc = "自动命令" }, { "<leader>sa", "Auto Commands" })
 map({ lhs = "<leader>sb", desc = "Buffer" }, { "<leader>sb", "Buffer" })
@@ -207,7 +214,10 @@ map({ lhs = "<leader>sG", desc = "实时查找(root dir)" }, { "<leader>sg", "Gr
 map({ lhs = "<leader>sg", desc = "实时查找(cwd)" }, { "<leader>sG", "Grep (cwd)" })
 map({ lhs = "<leader>sh", desc = "Help Pages" }, { "<leader>sh", "Help Pages" })
 map({ lhs = "<leader>sH", desc = "高亮组" }, { "<leader>sH", "Search Highlight Groups" })
+map({ lhs = "<leader>sj", desc = "Jumplist" }, { "<leader>sj", "Jumplist" })
 map({ lhs = "<leader>sk", desc = "查找keymap" }, { "<leader>sk", "Key Maps" })
+map({ lhs = "<leader>sl", desc = "Location List" }, { "<leader>sl", "Location List" })
+map({ lhs = "<leader>sq", desc = "quickfix查找" }, { "<leader>sq", "Quickfix List" })
 def_map("<leader>sK", ":WhichKey <CR>", "WhichKey 查找映射")
 map({ lhs = "<leader>sM", desc = "Man Pages" }, { "<leader>sM", "Man Pages" })
 map({ lhs = "<leader>sm", desc = "查找mark" }, { "<leader>sm", "Jump to Mark" })
@@ -219,10 +229,12 @@ map({ lhs = "<leader>sw", desc = "查找当前符号(cwd)" }, { "<leader>sW", "W
 map({ lhs = "<leader>sW", desc = "查找字符串(root dir)" }, { "<leader>sw", "Selection (Root Dir)", mode = "v" })
 map({ lhs = "<leader>sw", desc = "查找字符串(cwd)" }, { "<leader>sW", "Selection (cwd)", mode = "v" })
 -- noice
+map({lhs = "<leader>sn", desc = "+noice"}, {"<leader>sn", "+noice"})
 map({lhs = "<leader>snl", desc = "Noice Last Message"}, {"<leader>snl", "Noice Last Message"})
 map({lhs = "<leader>snh", desc = "Noice History"}, {"<leader>snh", "Noice History"})
 map({lhs = "<leader>sna", desc = "Noice All"}, {"<leader>sna", "Noice All"})
 map({lhs = "<leader>snd", desc = "Dismiss All"}, {"<leader>snd", "Dismiss All"})
+map({lhs = "<leader>snt", desc = "Noice Telescope"}, {"<leader>snt", "Noice Picker (Telescope/FzfLua)"})
 
 map({lhs = "<leader>st", desc = "Todo"}, {"<leader>st", "Todo"})
 map({lhs = "<leader>sT", desc = "Todo/Fix/Fixme"}, {"<leader>sT", "Todo/Fix/Fixme"})
@@ -275,6 +287,8 @@ map({lhs = "<leader>ww", desc = "上一个窗口"}, {"<leader>ww", "Other Window
 map({lhs = "<leader>wd", desc = "删除窗口"}, {"<leader>wd", "Delete Window"})
 map({lhs = "<leader>w-", desc = "向右拆分窗口"}, {"<leader>w-", "Split Window Below"})
 map({lhs = "<leader>w|", desc = "向下拆分窗口"}, {"<leader>w|", "Split Window Right"})
+map({lhs = "<leader>wm", desc = "窗口最大化"}, {"<leader>wm", "Maximize Toggle"})
+del({"<leader>m",  "Maximize Toggle"})
 del({"<leader>-",  "Split Window Below"})
 del({"<leader>|", "Split Window Right"})
 -- }}}
@@ -288,19 +302,21 @@ map({lhs = "<leader><tab>]", desc = "Next Tab" }, {"<leader><tab>]", "Next Tab" 
 map({lhs = "<leader><tab><tab>", desc = "New Tab" }, {"<leader><tab><tab>", "New Tab"})
 map({lhs = "<leader><tab>d", desc = "Close Tab" }, {"<leader><tab>d", "Close Tab" })
 map({lhs = "<leader><tab>[", desc = "Previous Tab"}, {"<leader><tab>[", "Previous Tab" })
+map({lhs = "<leader><tab>o", desc = "Close Other Tabs"}, {"<leader><tab>o", "Close Other Tabs" })
 -- }}}
 
 -- diagnostics/quickfix {{{
 def_map("<leader>x", nil, 'diagnostics/quickfix')
 
-map({lhs = "<leader>xx", desc = "文件LSP诊断(Trouble)"}, {"<leader>xx", "Document Diagnostics (Trouble)"})
-map({lhs = "<leader>xX", desc = "工作区LSP诊断(Trouble)"}, {"<leader>xX", "Workspace Diagnostics (Trouble)"})
+map({lhs = "<leader>xx", desc = "文件LSP诊断(Trouble)"}, {"<leader>xx", "Diagnostics (Trouble)"})
+map({lhs = "<leader>xX", desc = "工作区LSP诊断(Trouble)"}, {"<leader>xX", "Buffer Diagnostics (Trouble)"})
 map({lhs = "<leader>xL", desc = "Location List (Trouble)"}, {"<leader>xL", "Location List (Trouble)"})
 map({lhs = "<leader>xQ", desc = "Quickfix List (Trouble)"}, {"<leader>xQ", "Quickfix List (Trouble)"})
 map({lhs = "<leader>xt", desc = "Todo (Trouble)"}, {"<leader>xt", "Todo (Trouble)"})
 map({lhs = "<leader>xT", desc = "Todo/Fix/Fixme (Trouble)"}, {"<leader>xT", "Todo/Fix/Fixme (Trouble)"})
 map({lhs = "<leader>xl", desc = "Location List" }, {"<leader>xl", "Location List"})
 map({lhs = "<leader>xq", desc = "Quickfix List" }, {"<leader>xq", "Quickfix List"})
+map({lhs = "<leader>xS", desc = "Trouble lsp" }, {"<leader>cS", "LSP references/definitions/... (Trouble)"})
 
 --}}}
 
@@ -323,10 +339,10 @@ del({"<tab>", mode = {"i", "s"}})
 del({"<s-tab>", mode = {"i", "s"}})
 
 -- better up/down
-map({lhs = "j", desc = "better j"}, {"j", mode = {"n", "x"}})
-map({lhs = "k", desc = "better k"}, {"k", mode = {"n", "x"}})
-map({lhs = "<Down>", desc = "better j"}, {"<Down>", mode = {"n", "x"}})
-map({lhs = "<Up>", desc = "better k"}, {"<Up>", mode = {"n", "x"}})
+map({lhs = "j", desc = "Down"}, {"j", "Down", mode = {"n", "x"}})
+map({lhs = "k", desc = "Up"}, {"k", "Up", mode = {"n", "x"}})
+map({lhs = "<Down>", desc = "Down"}, {"<Down>", "Down", mode = {"n", "x"}})
+map({lhs = "<Up>", desc = "Up"}, {"<Up>","Up", mode = {"n", "x"}})
 
 -- Move to window using the <ctrl> hjkl keys
 map({lhs = "<C-h>", rhs = ":TmuxNavigateLeft <CR>", desc = " 左窗口"}, {"<C-h>", "Go to Left Window"})
@@ -369,14 +385,16 @@ map({lhs = "[w", desc = "Prev Warning"}, { "[w", "Prev Warning" })
 
 map({lhs = "]]", desc = "Next Reference"}, {"]]", "Next Reference"})
 map({lhs = "[[", desc = "Prev Reference"}, {"[[", "Prev Reference"})
-del({"[q", "Previous quickfix"})
-del({"]q", "Next quickfix"})
+del({"[q", "Previous Quickfix"})
+del({"]q", "Next Quickfix"})
 map({lhs = "[q", desc = "Previous trouble/quickfix item"}, {"[q", "Previous Trouble/Quickfix Item"})
 map({lhs = "]q", desc = "Next trouble/quickfix item"}, {"]q", "Next Trouble/Quickfix Item"})
 map({lhs = "[t", desc = "Previous todo comment"}, {"[t", "Previous Todo Comment"})
 map({lhs = "]t", desc = "Next todo comment"}, {"]t", "Next Todo Comment"})
 map({lhs = "[b", desc = "上个 buffer"}, {"[b", "Prev Buffer"})
 map({lhs = "]b", desc = "下个 buffer"}, {"]b", "Next Buffer"})
+map({lhs = "]B", desc = "移动buf到下一个"}, {"]B", "Move buffer next"})
+map({lhs = "[B", desc = "移动buf到上一个"}, {"[B", "Move buffer prev"})
 
 def_map("]h", "<cmd>Gitsigns next_hunk<CR>", "Next Hunk")
 def_map("[h", "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk")
@@ -411,6 +429,9 @@ map({lhs = "<leader>qq", desc = "Quit all"}, {"<leader>qq", "Quit All" })
 map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Increment Selection"})
 map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", mode = "x"})
 
+-- cmp
+map({lhs = "<S-Tab>"}, {"<S-Tab>", mode = { "i", "s" }})
+map({lhs = "<Tab>"}, {"<Tab>", mode = { "i", "s" }})
 -- }}}
 
 -- quit/session{{{

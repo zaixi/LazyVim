@@ -80,6 +80,10 @@ function M.hook_replace_key(spec, mode, index, key)
         elseif key.desc == replace.default.desc then
             M.replace_keys_used[mode][key[1]] = replace
             table.insert(spec.replace_keys, back_key)
+        -- key描述是删除之前的映射
+        elseif key[2] == false then
+            table.insert(spec.replace_keys, key)
+        elseif replace.default.desc == "Toggle Outline" then
         -- 替换表和映射描述不一致就报错
         else
             print(spec[1], "replace map error: ", vim.inspect(key), replace.default.desc)
