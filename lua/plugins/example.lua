@@ -171,11 +171,11 @@ return {
         "lewis6991/gitsigns.nvim",
         opts = {
             signs = {
-                add = { hl = "DiffAdd", text = "", numhl = "GitSignsAddNr" },
-                change = { hl = "DiffChange", text = "│", numhl = "GitSignsChangeNr" },
-                delete = { hl = "DiffDelete", text = "", numhl = "GitSignsDeleteNr" },
-                topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
-                changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
+                add = { text = "" },
+                change = { text = "│" },
+                delete = { text = "" },
+                topdelete = { text = "‾" },
+                changedelete = { text = "~" },
             },
             current_line_blame_formatter = '<abbrev_sha>: <author>, <author_time:%Y-%m-%d> - <summary>',
             on_attach = function() end,

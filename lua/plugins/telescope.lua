@@ -41,8 +41,9 @@ return {
                     },
                     file_sorter = require("telescope.sorters").get_fuzzy_file,
                     generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-                    --path_display = { "truncate" },
-                    path_display = { "smart" },
+                    -- path_display = { "filename_first" },
+                    -- path_display = { "truncate" },
+                    --path_display = { "smart" },
                 }
             }
             return vim.tbl_deep_extend("force", opts, user_opts)
