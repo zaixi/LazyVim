@@ -14,9 +14,12 @@ require("utils.replace_keys").init_replace_keys()
 local function lazyvim_custom()
   local Util = require("lazyvim.util")
   local utils = require("utils.replace_keys")
+  local Toggle = require("lazyvim.util")
+  local toggle = require("utils.lazy")
 
   utils.default_safe_keymap_set = vim.deepcopy(Util.safe_keymap_set)
   Util.safe_keymap_set = utils.safe_keymap_set
+  Util.toggle.wk = toggle.wk
 end
 
 require("lazy").setup({

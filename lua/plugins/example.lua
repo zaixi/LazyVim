@@ -212,6 +212,12 @@ return {
         --    require("mini.align").setup()
         --end
     },
+    {
+        "folke/which-key.nvim",
+        opts = {
+            notify = false,
+        },
+    },
     --{"YacineDo/mc.nvim", event = "VeryLazy"},
 
   --- }}}
