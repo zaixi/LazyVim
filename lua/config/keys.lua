@@ -62,36 +62,38 @@ map({lhs = "<leader>uL", "LazyVim Changelog"}, { "<leader>L", "LazyVim Changelog
 -- taken from runtime/lua/_editor.lua
 map({lhs = "<leader>ur", desc = "重绘/清除"}, {"<leader>ur", "Redraw / Clear hlsearch / Diff Update"})
 map({lhs = "<leader>uC", desc = "   查找主题和预览" }, { "<leader>uC", "Colorscheme with Preview" })
-map({lhs = "<leader>ub", desc = "切换背景色" }, { "<leader>ub", "ToggleBackground" })
+map({lhs = "<leader>ub", desc = "切换背景色" }, { "<leader>ub", "Toggle Dark Background" })
 map({lhs = "<leader>ut", desc = "切换Treesitter上下文"}, {"<leader>ut", "Toggle Treesitter Context"})
-map({lhs = "<leader>up", desc = "切换auto pairs"}, {"<leader>up", "ToggleMini Pairs"})
+map({lhs = "<leader>up", desc = "切换auto pairs"}, {"<leader>up", "Toggle Mini Pairs"})
+map({lhs = "<leader>ug", desc = "切换Indention Guides" }, { "<leader>ug", "Toggle Indention Guides" })
+map({lhs = "<leader>ux", desc = "切换Illuminate" }, { "<leader>ux", "Toggle Illuminate" })
 
 -- highlights under cursor
 map({lhs = "<leader>ui", desc = "Inspect Pos"}, { "<leader>ui", "Inspect Pos" })
 map({lhs = "<leader>uI", desc = "Inspect Tree"}, { "<leader>uI", "Inspect Tree" })
 
 -- toggle options
-map({lhs = "<leader>uf", desc = "切换自动格式化(global)"}, {  "<leader>uf", "ToggleAuto Format (Global)" })
-map({lhs = "<leader>uF", desc = "切换自动格式化(buffer)"}, {  "<leader>uF", "ToggleAuto Format (Buffer)" })
-map({lhs = "<leader>us", desc = "切换拼写建议" }, { "<leader>us", "ToggleSpelling" })
-map({lhs = "<leader>ud", desc = "切换Diagnostics" }, { "<leader>ud", "ToggleDiagnostics" })
-map({lhs = "<leader>uc", desc = "切换隐藏文本" }, { "<leader>uc", "Toggleconceallevel" })
+map({lhs = "<leader>uf", desc = "切换自动格式化(global)"}, {  "<leader>uf", "Toggle Auto Format (Global)" })
+map({lhs = "<leader>uF", desc = "切换自动格式化(buffer)"}, {  "<leader>uF", "Toggle Auto Format (Buffer)" })
+map({lhs = "<leader>us", desc = "切换拼写建议" }, { "<leader>us", "Toggle Spelling" })
+map({lhs = "<leader>ud", desc = "切换Diagnostics" }, { "<leader>ud", "Toggle Diagnostics" })
+map({lhs = "<leader>uc", desc = "切换隐藏文本" }, { "<leader>uc", "Toggle conceallevel" })
 
 def_map("<leader>un", nil, '切换显示换行')
 def_map("<leader>und", ":e ++ff=unix <CR>", '显示dos换行')
 def_map("<leader>unu", ":e ++ff=dos <CR>", '显示unix换行')
-map({lhs = "<leader>unw", desc = "切换折行" }, { "<leader>uw", "ToggleWrap" })
-map({lhs = "<leader>unL", desc = "切换相对行号"}, { "<leader>uL", "ToggleRelative Number" })
-map({lhs = "<leader>unl", desc = "关闭/显示行号" }, { "<leader>ul", "ToggleLine Numbers" })
+map({lhs = "<leader>unw", desc = "切换折行" }, { "<leader>uw", "Toggle Wrap" })
+map({lhs = "<leader>unL", desc = "切换相对行号"}, { "<leader>uL", "Toggle Relative Number" })
+map({lhs = "<leader>unl", desc = "关闭/显示行号" }, { "<leader>ul", "Toggle Line Numbers" })
 def_map("<leader>uh", nil, '  切换高亮')
 def_map("<leader>uhh", ":set cursorline! <CR>", '切换行高亮')
 def_map("<leader>uhc", ":set cursorcolumn! <CR>", '切换列高亮')
 def_map("<leader>uhl", ":set list! <CR>", '切换隐藏的字符')
 
 if vim.lsp.inlay_hint then
-map({lhs = "<leader>uh", desc = "Toggle Inlay Hints" }, { "<leader>uh", "ToggleInlay Hints" })
+map({lhs = "<leader>uh", desc = "Toggle Inlay Hints" }, { "<leader>uh", "Toggle Inlay Hints" })
 end
-map({lhs = "<leader>uT", desc = "切换Treesitter高亮"}, { "<leader>uT", "ToggleTreesitter Highlight" })
+map({lhs = "<leader>uT", desc = "切换Treesitter高亮"}, { "<leader>uT", "Toggle Treesitter Highlight" })
 
 map({lhs = "<leader>uN", desc = "关闭所有notify"}, {"<leader>un","Dismiss All Notifications"})
 -- }}}
@@ -240,8 +242,7 @@ map({lhs = "<leader>snt", desc = "Noice Telescope"}, {"<leader>snt", "Noice Pick
 map({lhs = "<leader>st", desc = "Todo"}, {"<leader>st", "Todo"})
 map({lhs = "<leader>sT", desc = "Todo/Fix/Fixme"}, {"<leader>sT", "Todo/Fix/Fixme"})
 
-map({lhs = "<leader>sr", rhs = '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',desc = "正则搜索替换"}, {"<leader>sr", "Replace in Files (Spectre)"})
-def_map("<leader>sr", '<esc><cmd>lua require("spectre").open_visual()<CR>', "正则搜索替换", {mode = { "x", "v" }})
+map({lhs = "<leader>sr", desc = "正则搜索替换"}, {"<leader>sr", "Search and Replace", mode = { "n", "v" }})
 -- }}}
 
 --    切换 {{{
@@ -280,18 +281,18 @@ def_map("<leader>tp", ":call paste2system() <CR>", "从系统粘贴")
 -- }}}
 
 -- 窗口 {{{
-def_map("<leader>w", nil, '  窗口')
+--def_map("<leader>w", nil, '  窗口')
+map({lhs = "<leader>w", desc = "窗口选择"}, {"<leader>w", "Windows"})
 map({lhs = "<leader>wE", desc = "窗口选择"}, {"<leader>uE", "Edgy Select Window"})
 map({lhs = "<leader>we", desc = "Edgy窗口切换"}, {"<leader>ue", "Edgy Toggle"})
 -- windows
-map({lhs = "<leader>ww", desc = "上一个窗口"}, {"<leader>ww", "Other Window"})
+--map({lhs = "<leader>ww", desc = "上一个窗口"}, {"<leader>ww", "Other Window"})
 map({lhs = "<leader>wd", desc = "删除窗口"}, {"<leader>wd", "Delete Window"})
-map({lhs = "<leader>w-", desc = "向右拆分窗口"}, {"<leader>w-", "Split Window Below"})
-map({lhs = "<leader>w|", desc = "向下拆分窗口"}, {"<leader>w|", "Split Window Right"})
-map({lhs = "<leader>wm", desc = "窗口最大化"}, {"<leader>wm", "ToggleMaximize"})
+map({lhs = "<leader>w-", desc = "向右拆分窗口"}, {"<leader>-", "Split Window Below"})
+map({lhs = "<leader>w|", desc = "向下拆分窗口"}, {"<leader>|", "Split Window Right"})
+map({lhs = "<leader>wm", desc = "窗口最大化"}, {"<leader>wm", "Toggle Maximize"})
+map({lhs = "<c-w><space>", desc = "Window Hydra Mode (which-key)"}, {"<c-w><space>", "Window Hydra Mode (which-key)"})
 del({"<leader>m",  "Maximize Toggle"})
-del({"<leader>-",  "Split Window Below"})
-del({"<leader>|", "Split Window Right"})
 -- }}}
 
 -- tabs {{{
@@ -366,15 +367,15 @@ map({lhs = "<A-j>", desc = "向下移动行"}, {"<A-j>", "Move Down", mode = {"n
 map({lhs = "<A-k>", desc = "向上移动行"},  {"<A-k>", "Move Up", mode = {"n", "i", "v"}})
 
 -- Terminal Mappings
-map({lhs = "<esc><esc>", desc = "Enter Normal Mode" }, {"<esc><esc>", "Enter Normal Mode", mode = "t"})
-map({lhs = "<C-h>", desc = "Go to left window"}, {"<C-h>", "Go to Left Window", mode = "t"})
-map({lhs = "<C-j>", desc = "Go to lower window"}, {"<C-j>", "Go to Lower Window" , mode = "t"})
-map({lhs = "<C-k>", desc = "Go to upper window"}, {"<C-k>", "Go to Upper Window" , mode = "t"})
-map({lhs = "<C-l>", desc = "Go to right window"}, {"<C-l>", "Go to Right Window" , mode = "t"})
---def_map("<C-Left>", "<C-h>", "Go to left window", {remap = true, mode = {"t"}})
---def_map("<C-Down>", "<C-j>", "Go to lower window", {remap = true, mode = {"t"}})
---def_map("<C-Up>", "<C-k>", "Go to upper window", {remap = true, mode = {"t"}})
---def_map("<C-Right>", "<C-l>", "Go to right window", {remap = true, mode = {"t"}})
+-- map({lhs = "<esc><esc>", desc = "Enter Normal Mode" }, {"<esc><esc>", "Enter Normal Mode", mode = "t"})
+--map({lhs = "<C-h>", desc = "Go to left window"}, {"<C-h>", "Go to Left Window", mode = "t"})
+--map({lhs = "<C-j>", desc = "Go to lower window"}, {"<C-j>", "Go to Lower Window" , mode = "t"})
+--map({lhs = "<C-k>", desc = "Go to upper window"}, {"<C-k>", "Go to Upper Window" , mode = "t"})
+--map({lhs = "<C-l>", desc = "Go to right window"}, {"<C-l>", "Go to Right Window" , mode = "t"})
+def_map("<C-Left>", "<C-h>", "Go to left window", {remap = true, mode = {"t"}})
+def_map("<C-Down>", "<C-j>", "Go to lower window", {remap = true, mode = {"t"}})
+def_map("<C-Up>", "<C-k>", "Go to upper window", {remap = true, mode = {"t"}})
+def_map("<C-Right>", "<C-l>", "Go to right window", {remap = true, mode = {"t"}})
 
 -- diagnostic
 map({lhs = "]d", desc = "Next Diagnostic"}, { "]d", "Next Diagnostic" })
@@ -431,12 +432,13 @@ map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Increment Sel
 map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", mode = "x"})
 
 -- cmp
-map({lhs = "<S-Tab>"}, {"<S-Tab>", mode = { "i", "s" }})
-map({lhs = "<Tab>"}, {"<Tab>", mode = { "i", "s" }})
+map({lhs = "<S-Tab>", desc = "Jump Previous", expr = true }, {"<S-Tab>", "Jump Previous", mode = { "i", "s" }})
+map({lhs = "<Tab>", desc = "Jump Next"}, {"<Tab>", "Jump Next", mode = { "s" }})
 -- }}}
 
 -- quit/session{{{
 map({lhs = "<leader>qs", desc = "Restore Session"}, {"<leader>qs", "Restore Session"})
+map({lhs = "<leader>qS", desc = "Select Session"}, {"<leader>qS", "Select Session"})
 map({lhs = "<leader>ql", desc = "Restore Last Session"}, {"<leader>ql", "Restore Last Session"})
 map({lhs = "<leader>qd", desc = "Don't Save Current Session"}, {"<leader>qd", "Don't Save Current Session"})
 -- }}}
