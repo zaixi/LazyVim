@@ -171,9 +171,9 @@ return {
         "lewis6991/gitsigns.nvim",
         opts = {
             signs = {
-                add = { text = "" },
-                change = { text = "│" },
-                delete = { text = "" },
+                add = { text = "" },
+                change = { text = "" },
+                delete = { text = "" },
                 topdelete = { text = "‾" },
                 changedelete = { text = "~" },
             },
@@ -216,6 +216,7 @@ return {
         "folke/which-key.nvim",
         opts = {
             notify = false,
+            preset = "modern",
         },
     },
     --{"YacineDo/mc.nvim", event = "VeryLazy"},

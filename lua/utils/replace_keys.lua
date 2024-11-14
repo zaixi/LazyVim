@@ -56,6 +56,26 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
     end
 end
 
+-- 重写按键映射函数实现保存默认映射表
+function M.snacks_keymap_set(mode, lhs, rhs, opts)
+    local spec = { [1] = "default_key", keys = {}}
+    spec.keys[1] = opts or {}
+    local key = spec.keys[1]
+    key[1] = lhs
+    key[2] = rhs
+    key.mode = mode
+    M.hook_keys(spec)
+    for _, keymap in ipairs(spec.keys) do
+        mode = keymap.mode
+        lhs = keymap[1]
+        rhs = keymap[2]
+        keymap.mode = nil
+        keymap[1] = nil
+        keymap[2] = nil
+        return lhs, keymap.desc
+    end
+end
+
 function M.hook_replace_key(spec, mode, index, key)
     local del_desc = M.del_mappings[mode][key[1]] or nil
     local replace = M.replace_keys[mode][key[1]] or nil
@@ -90,7 +110,7 @@ function M.hook_replace_key(spec, mode, index, key)
         end
     else
         -- 不存在替换表就报错
-        --print(spec[1], "no replace map: ", vim.inspect(key))
+        print(spec[1], "no replace map: ", vim.inspect(key))
         M.default_keys = M.default_keys or M.empty_map_table()
         back_key["plug"] = spec[1]
         M.default_keys[mode][key[1]] = vim.tbl_extend("force", M.default_keys[mode][key[1]] or {}, back_key)

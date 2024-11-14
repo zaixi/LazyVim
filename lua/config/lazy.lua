@@ -19,7 +19,6 @@ local function lazyvim_custom()
 
   utils.default_safe_keymap_set = vim.deepcopy(Util.safe_keymap_set)
   Util.safe_keymap_set = utils.safe_keymap_set
-  Util.toggle.wk = toggle.wk
 end
 
 require("lazy").setup({

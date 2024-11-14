@@ -11,6 +11,9 @@ local opt = vim.opt
 
 vim.g.autoformat = false
 vim.g.mapleader = " "
+-- In case you don't want to use `:LazyExtras`,
+-- then you need to set the option below.
+vim.g.lazyvim_picker = "telescope"
 ------------------------------------------------------------
 -- 基础设置
 ------------------------------------------------------------

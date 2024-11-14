@@ -12,7 +12,7 @@ map({lhs = "<leader>gG", desc = "Lazygit (cwd)" }, { "<leader>gG", "Lazygit (cwd
 map({lhs = "<leader>gf", desc = "Lazygit current file history" }, { "<leader>gf", "Lazygit Current File History" })
 map({lhs = "<leader>gl", desc = "Lazygit Log" }, { "<leader>gl", "Lazygit Log" })
 map({lhs = "<leader>gL", desc = "Lazygit Log (cwd)" }, { "<leader>gL", "Lazygit Log (cwd)" })
-del({"<leader>gB", "Git Browse"})
+del({"<leader>gB", "Git Browse (open)", mode = { "n", "x" }})
 -- git
 map({ lhs = "<leader>gc", desc = "commits" }, { "<leader>gc", "Commits" })
 map({ lhs = "<leader>gs", desc = "status" }, { "<leader>gs", "Status" })
@@ -20,6 +20,7 @@ map({lhs = "<leader>ge", desc = "Git explorer"}, {"<leader>ge", "Git Explorer"})
 -- gitsigns
 def_map("<leader>gn", "<cmd>Gitsigns next_hunk<CR>", "Next Hunk")
 def_map("<leader>gp", "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk")
+map({lhs = "<leader>gS", desc = "Git Signs"}, {"<leader>uG", "Git Signs" })
 def_map("<leader>gh", nil, 'hunks')
 def_map("<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk", { "n", "v" })
 def_map("<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk", { "n", "v" })
@@ -28,8 +29,7 @@ def_map("<leader>ghu", "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk")
 def_map("<leader>ghR", "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer")
 def_map("<leader>ghp", "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk")
 def_map("<leader>gB", "<cmd>Gitsigns toggle_current_line_blame <CR>", "当前行 blame")
---map("n", "<leader>gb", LazyVim.lazygit.blame_line, { desc = "Git Blame Line" })
---def_map("<leader>gb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>", "Blame Line")
+map({lhs = "<leader>gY", desc = "Git Browse(copy)"}, { "<leader>gY", "Git Browse (copy)", mode = { "n", "x" } })
 map({lhs = "<leader>gb", desc = "Blame Line"}, {"<leader>gb", "Git Blame Line"})
 def_map("<leader>gd", function() vim.wo.diff=false require'gitsigns'.diffthis() end, "Diff This")
 def_map("<leader>gD", function() vim.wo.diff=false require'gitsigns'.diffthis("~") end, "Diff This ~")
@@ -49,9 +49,8 @@ del({"gcO",  "Add Comment Above"})
 -- }}}
 
 --   更新/ui {{{
---map({lhs = "<leader>uS", desc = "切换Flash搜索"}, {"<c-s>", "Toggle Flash Search", mode = "c" })
-del({"<c-s>", "Toggle Flash Search", mode = "c"})
-def_map("<leader>uS", function() require("flash").toggle() end, '切换Flash搜索')
+map({lhs = "<c-s>", desc = "切换Flash搜索"}, {"<c-s>", "Toggle Flash Search", mode = "c" })
+--del({"<c-s>", "Toggle Flash Search", mode = "c"})
 -- lazy
 def_map("<leader>u", nil, '  更新/ui')
 map({lhs = "<leader>um", desc = "  LSP/DAP 服务器"}, {"<leader>cm", "Mason"})
@@ -62,36 +61,43 @@ map({lhs = "<leader>uL", "LazyVim Changelog"}, { "<leader>L", "LazyVim Changelog
 -- taken from runtime/lua/_editor.lua
 map({lhs = "<leader>ur", desc = "重绘/清除"}, {"<leader>ur", "Redraw / Clear hlsearch / Diff Update"})
 map({lhs = "<leader>uC", desc = "   查找主题和预览" }, { "<leader>uC", "Colorscheme with Preview" })
-map({lhs = "<leader>ub", desc = "切换背景色" }, { "<leader>ub", "ToggleBackground" })
-map({lhs = "<leader>ut", desc = "切换Treesitter上下文"}, {"<leader>ut", "Toggle Treesitter Context"})
-map({lhs = "<leader>up", desc = "切换auto pairs"}, {"<leader>up", "ToggleMini Pairs"})
+map({lhs = "<leader>ub", desc = "暗背景" }, { "<leader>ub", "Dark Background" })
+map({lhs = "<leader>ut", desc = "Treesitter上下文"}, {"<leader>ut", "Treesitter Context"})
+map({lhs = "<leader>up", desc = "auto pairs"}, {"<leader>up", "Mini Pairs"})
+map({lhs = "<leader>ug", desc = "缩进指南" }, { "<leader>ug", "Indent Guides" })
+map({lhs = "<leader>ux", desc = "Illuminate" }, { "<leader>ux", "Illuminate" })
+map({lhs = "<leader>uS", desc = "平滑滚动"}, {"<leader>uS", "Smooth Scroll" })
+map({lhs = "<leader>ua", desc = "动画"}, {"<leader>ua", "Animations" })
 
 -- highlights under cursor
 map({lhs = "<leader>ui", desc = "Inspect Pos"}, { "<leader>ui", "Inspect Pos" })
 map({lhs = "<leader>uI", desc = "Inspect Tree"}, { "<leader>uI", "Inspect Tree" })
 
 -- toggle options
-map({lhs = "<leader>uf", desc = "切换自动格式化(global)"}, {  "<leader>uf", "ToggleAuto Format (Global)" })
-map({lhs = "<leader>uF", desc = "切换自动格式化(buffer)"}, {  "<leader>uF", "ToggleAuto Format (Buffer)" })
-map({lhs = "<leader>us", desc = "切换拼写建议" }, { "<leader>us", "ToggleSpelling" })
-map({lhs = "<leader>ud", desc = "切换Diagnostics" }, { "<leader>ud", "ToggleDiagnostics" })
-map({lhs = "<leader>uc", desc = "切换隐藏文本" }, { "<leader>uc", "Toggleconceallevel" })
+map({lhs = "<leader>uf", desc = "自动格式化(global)"}, {  "<leader>uf", "Auto Format (Global)" })
+map({lhs = "<leader>uF", desc = "自动格式化(buffer)"}, {  "<leader>uF", "Auto Format (Buffer)" })
+map({lhs = "<leader>us", desc = "拼写建议" }, { "<leader>us", "Spelling" })
+map({lhs = "<leader>ud", desc = "Diagnostics" }, { "<leader>ud", "Diagnostics" })
+map({lhs = "<leader>uc", desc = "隐藏文本" }, { "<leader>uc", "Conceal Level" })
 
 def_map("<leader>un", nil, '切换显示换行')
 def_map("<leader>und", ":e ++ff=unix <CR>", '显示dos换行')
 def_map("<leader>unu", ":e ++ff=dos <CR>", '显示unix换行')
-map({lhs = "<leader>unw", desc = "切换折行" }, { "<leader>uw", "ToggleWrap" })
-map({lhs = "<leader>unL", desc = "切换相对行号"}, { "<leader>uL", "ToggleRelative Number" })
-map({lhs = "<leader>unl", desc = "关闭/显示行号" }, { "<leader>ul", "ToggleLine Numbers" })
+map({lhs = "<leader>unw", desc = "折行" }, { "<leader>uw", "Wrap" })
+map({lhs = "<leader>unL", desc = "相对行号"}, { "<leader>uL", "Relative Number" })
+map({lhs = "<leader>unl", desc = "行号" }, { "<leader>ul", "Line Numbers" })
 def_map("<leader>uh", nil, '  切换高亮')
 def_map("<leader>uhh", ":set cursorline! <CR>", '切换行高亮')
 def_map("<leader>uhc", ":set cursorcolumn! <CR>", '切换列高亮')
 def_map("<leader>uhl", ":set list! <CR>", '切换隐藏的字符')
+map({lhs = "<leader>uhp", desc = "Profiler 高亮"}, {"<leader>dph", "Profiler Highlights" })
+map({lhs = "<leader>uP", desc = "Profiler"}, {"<leader>dpp", "Profiler" })
+map({lhs = "<leader>uD", desc = "Dimming"}, {"<leader>uD", "Dimming" })
 
 if vim.lsp.inlay_hint then
-map({lhs = "<leader>uh", desc = "Toggle Inlay Hints" }, { "<leader>uh", "ToggleInlay Hints" })
+map({lhs = "<leader>uh", desc = "Inlay Hints" }, { "<leader>uh", "Inlay Hints" })
 end
-map({lhs = "<leader>uT", desc = "切换Treesitter高亮"}, { "<leader>uT", "ToggleTreesitter Highlight" })
+map({lhs = "<leader>uT", desc = "Treesitter高亮"}, { "<leader>uT", "Treesitter Highlight" })
 
 map({lhs = "<leader>uN", desc = "关闭所有notify"}, {"<leader>un","Dismiss All Notifications"})
 -- }}}
@@ -118,6 +124,11 @@ map({lhs = "<leader>bl", desc = "删除左边的buffers"}, {"<leader>bl", "Delet
 -- new file
 map({lhs = "<leader>bn", desc = "烙 新建 buffer" }, {"<leader>fn", "New File"})
 map({lhs = "<leader>be", desc = "buf 浏览器"}, {"<leader>be", "Buffer Explorer"})
+map({lhs = "<leader>b.", desc = "切换 Scratch 缓冲区"}, {"<leader>.", "Toggle Scratch Buffer" })
+map({lhs = "<leader>bS", desc = "选择 Scratch 缓冲区"}, {"<leader>S", "Select Scratch Buffer" })
+map({lhs = "<leader>bs", desc = "Profiler Scratch 缓冲区"}, {"<leader>dps", "Profiler Scratch Buffer" })
+map({lhs = "<leader>bA", desc = "Tabline"}, {"<leader>uA", "Tabline" })
+
 -- }}}
 
 -- 按键映射/code {{{
@@ -136,8 +147,8 @@ def_map("<leader>fs", ":SudaWrite  <CR>", "以sudo保存文件")
 def_map("<leader>fS", ":SudaRead  <CR>", "以sudo读取文件")
 -- file
 def_map("<leader>fe", "<cmd>Neotree filesystem focus <CR>", "跳转到文件树")
-map({lhs = "<leader>fl", desc = "文件树(root dir)"}, {"<leader>fe", "Explorer NeoTree (Root Dir)"})
-map({lhs = "<leader>fL", desc = "文件树(cwd)"}, {"<leader>fE", "Explorer NeoTree (cwd)"})
+map({lhs = "<leader>fL", desc = "文件树(root dir)"}, {"<leader>fe", "Explorer NeoTree (Root Dir)"})
+map({lhs = "<leader>fl", desc = "文件树(cwd)"}, {"<leader>fE", "Explorer NeoTree (cwd)"})
 map({lhs = "<leader>e", desc = "文件树(root dir)", rhs = "<leader>fl"}, {"<leader>e", "Explorer NeoTree (Root Dir)"})
 map({lhs = "<leader>E", desc = "文件树(cwd)", rhs = "<leader>fL"}, {"<leader>E", "Explorer NeoTree (cwd)"})
 -- find
@@ -146,8 +157,8 @@ map({ lhs = "<leader>fg", desc = "查找文件(git范围)" }, { "<leader>fg", "F
 def_map("<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true  <CR>", "查找所有文件")
 map({lhs = "<C-p>", desc = "查找文件(root dir)"}, {"<leader><space>", "Find Files (Root Dir)"})
 map({ lhs = "<leader>fc", desc = "查找Config文件" }, { "<leader>fc", "Find Config File" })
-map({ lhs = "<leader>ff", desc = "查找文件(root dir)" }, { "<leader>ff", "Find Files (Root Dir)" })
-map({ lhs = "<leader>fF", desc = "查找文件(cwd)" }, { "<leader>fF", "Find Files (cwd)" })
+map({ lhs = "<leader>fF", desc = "查找文件(root dir)" }, { "<leader>ff", "Find Files (Root Dir)" })
+map({ lhs = "<leader>ff", desc = "查找文件(cwd)" }, { "<leader>fF", "Find Files (cwd)" })
 map({ lhs = "<leader>fr", desc = "查找近期文件" }, { "<leader>fr", "Recent" })
 map({ lhs = "<leader>fR", desc = "查找近期文件(cwd)" }, { "<leader>fR", "Recent (cwd)" })
 map({ lhs = "<leader>fp", desc = "Projects" }, { "<leader>fp", "Projects" })
@@ -197,7 +208,6 @@ map({lhs = "<leader>mK", desc = "在vimdoc/man中查找当前词" }, {"<leader>K
 -- }}}
 
 --    搜索/符号{{{
-del({"<leader>/", "Grep (Root Dir)"})
 del({"<leader>:", "Command History"})
 def_map("<leader>s", nil, '  搜索/符号')
 map({ lhs = "<leader>ss", desc = "查找定义" }, { "<leader>ss", "Goto Symbol" })
@@ -234,14 +244,14 @@ map({lhs = "<leader>sn", desc = "+noice"}, {"<leader>sn", "+noice"})
 map({lhs = "<leader>snl", desc = "Noice Last Message"}, {"<leader>snl", "Noice Last Message"})
 map({lhs = "<leader>snh", desc = "Noice History"}, {"<leader>snh", "Noice History"})
 map({lhs = "<leader>sna", desc = "Noice All"}, {"<leader>sna", "Noice All"})
+map({lhs = "<leader>snn", desc = "通知历史"}, {"<leader>n", "Notification History" })
 map({lhs = "<leader>snd", desc = "Dismiss All"}, {"<leader>snd", "Dismiss All"})
 map({lhs = "<leader>snt", desc = "Noice Telescope"}, {"<leader>snt", "Noice Picker (Telescope/FzfLua)"})
 
 map({lhs = "<leader>st", desc = "Todo"}, {"<leader>st", "Todo"})
 map({lhs = "<leader>sT", desc = "Todo/Fix/Fixme"}, {"<leader>sT", "Todo/Fix/Fixme"})
 
-map({lhs = "<leader>sr", rhs = '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',desc = "正则搜索替换"}, {"<leader>sr", "Replace in Files (Spectre)"})
-def_map("<leader>sr", '<esc><cmd>lua require("spectre").open_visual()<CR>', "正则搜索替换", {mode = { "x", "v" }})
+map({lhs = "<leader>sr", desc = "正则搜索替换"}, {"<leader>sr", "Search and Replace", mode = { "n", "v" }})
 -- }}}
 
 --    切换 {{{
@@ -280,18 +290,20 @@ def_map("<leader>tp", ":call paste2system() <CR>", "从系统粘贴")
 -- }}}
 
 -- 窗口 {{{
-def_map("<leader>w", nil, '  窗口')
+--def_map("<leader>w", nil, '  窗口')
+map({lhs = "<leader>w", desc = "窗口选择"}, {"<leader>w", "Windows"})
 map({lhs = "<leader>wE", desc = "窗口选择"}, {"<leader>uE", "Edgy Select Window"})
 map({lhs = "<leader>we", desc = "Edgy窗口切换"}, {"<leader>ue", "Edgy Toggle"})
 -- windows
-map({lhs = "<leader>ww", desc = "上一个窗口"}, {"<leader>ww", "Other Window"})
+--map({lhs = "<leader>ww", desc = "上一个窗口"}, {"<leader>ww", "Other Window"})
 map({lhs = "<leader>wd", desc = "删除窗口"}, {"<leader>wd", "Delete Window"})
-map({lhs = "<leader>w-", desc = "向右拆分窗口"}, {"<leader>w-", "Split Window Below"})
-map({lhs = "<leader>w|", desc = "向下拆分窗口"}, {"<leader>w|", "Split Window Right"})
-map({lhs = "<leader>wm", desc = "窗口最大化"}, {"<leader>wm", "ToggleMaximize"})
+map({lhs = "<leader>w-", desc = "向右拆分窗口"}, {"<leader>-", "Split Window Below"})
+map({lhs = "<leader>w|", desc = "向下拆分窗口"}, {"<leader>|", "Split Window Right"})
+map({lhs = "<leader>wm", desc = "窗口最大化"}, {"<leader>wm", "Zoom Mode"})
+map({lhs = "<leader>wz", desc = "Zen Mode"}, {"<leader>uz", "Zen Mode"})
+map({lhs = "<leader>wZ", desc = "Zoom Mode"}, {"<leader>uZ", "窗口最大化"})
+map({lhs = "<c-w><space>", desc = "Window Hydra Mode (which-key)"}, {"<c-w><space>", "Window Hydra Mode (which-key)"})
 del({"<leader>m",  "Maximize Toggle"})
-del({"<leader>-",  "Split Window Below"})
-del({"<leader>|", "Split Window Right"})
 -- }}}
 
 -- tabs {{{
@@ -336,8 +348,6 @@ def_map("<C-w>", "<del>", "del", "c")
 
 def_map("<C-c>", "<cmd> %y+  <CR>", "复制整个文件")
 
-del({"<tab>", mode = {"i", "s"}})
-del({"<s-tab>", mode = {"i", "s"}})
 
 -- better up/down
 map({lhs = "j", desc = "Down"}, {"j", "Down", mode = {"n", "x"}})
@@ -366,15 +376,15 @@ map({lhs = "<A-j>", desc = "向下移动行"}, {"<A-j>", "Move Down", mode = {"n
 map({lhs = "<A-k>", desc = "向上移动行"},  {"<A-k>", "Move Up", mode = {"n", "i", "v"}})
 
 -- Terminal Mappings
-map({lhs = "<esc><esc>", desc = "Enter Normal Mode" }, {"<esc><esc>", "Enter Normal Mode", mode = "t"})
-map({lhs = "<C-h>", desc = "Go to left window"}, {"<C-h>", "Go to Left Window", mode = "t"})
-map({lhs = "<C-j>", desc = "Go to lower window"}, {"<C-j>", "Go to Lower Window" , mode = "t"})
-map({lhs = "<C-k>", desc = "Go to upper window"}, {"<C-k>", "Go to Upper Window" , mode = "t"})
-map({lhs = "<C-l>", desc = "Go to right window"}, {"<C-l>", "Go to Right Window" , mode = "t"})
---def_map("<C-Left>", "<C-h>", "Go to left window", {remap = true, mode = {"t"}})
---def_map("<C-Down>", "<C-j>", "Go to lower window", {remap = true, mode = {"t"}})
---def_map("<C-Up>", "<C-k>", "Go to upper window", {remap = true, mode = {"t"}})
---def_map("<C-Right>", "<C-l>", "Go to right window", {remap = true, mode = {"t"}})
+-- map({lhs = "<esc><esc>", desc = "Enter Normal Mode" }, {"<esc><esc>", "Enter Normal Mode", mode = "t"})
+--map({lhs = "<C-h>", desc = "Go to left window"}, {"<C-h>", "Go to Left Window", mode = "t"})
+--map({lhs = "<C-j>", desc = "Go to lower window"}, {"<C-j>", "Go to Lower Window" , mode = "t"})
+--map({lhs = "<C-k>", desc = "Go to upper window"}, {"<C-k>", "Go to Upper Window" , mode = "t"})
+--map({lhs = "<C-l>", desc = "Go to right window"}, {"<C-l>", "Go to Right Window" , mode = "t"})
+def_map("<C-Left>", "<C-h>", "Go to left window", {remap = true, mode = {"t"}})
+def_map("<C-Down>", "<C-j>", "Go to lower window", {remap = true, mode = {"t"}})
+def_map("<C-Up>", "<C-k>", "Go to upper window", {remap = true, mode = {"t"}})
+def_map("<C-Right>", "<C-l>", "Go to right window", {remap = true, mode = {"t"}})
 
 -- diagnostic
 map({lhs = "]d", desc = "Next Diagnostic"}, { "]d", "Next Diagnostic" })
@@ -408,7 +418,7 @@ def_map("q", ":call SmartClose() <cr>", "   关闭window", {silent = true, mo
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
 def_map("p", 'p:let @+=@0<CR>:let @"=@0<CR>', "不要复制替换文本", { silent = true })
 -- Clear search with <esc>
-map({lhs = "<esc>", desc = "  不高亮"}, {"<esc>", "Escape and Clear hlsearch", mode = {"i", "n"}})
+map({lhs = "<esc>", desc = "  不高亮"}, {"<esc>", "Escape and Clear hlsearch", mode = {"i", "n", "s"}})
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map({lhs = "n", desc = "Next search result"}, { "n", "Next Search Result", mode = {"n", "x", "o"} })
 map({lhs = "N", desc = "Prev search result"}, { "N", "Prev Search Result", mode = {"n", "x", "o"} })
@@ -431,12 +441,13 @@ map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Increment Sel
 map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", mode = "x"})
 
 -- cmp
-map({lhs = "<S-Tab>"}, {"<S-Tab>", mode = { "i", "s" }})
-map({lhs = "<Tab>"}, {"<Tab>", mode = { "i", "s" }})
+map({lhs = "<S-Tab>", desc = "Jump Previous", expr = true }, {"<S-Tab>", "Jump Previous", mode = { "i", "s" }})
+map({lhs = "<Tab>", desc = "Jump Next"}, {"<Tab>", "Jump Next", mode = { "s" }})
 -- }}}
 
 -- quit/session{{{
 map({lhs = "<leader>qs", desc = "Restore Session"}, {"<leader>qs", "Restore Session"})
+map({lhs = "<leader>qS", desc = "Select Session"}, {"<leader>qS", "Select Session"})
 map({lhs = "<leader>ql", desc = "Restore Last Session"}, {"<leader>ql", "Restore Last Session"})
 map({lhs = "<leader>qd", desc = "Don't Save Current Session"}, {"<leader>qd", "Don't Save Current Session"})
 -- }}}
@@ -455,6 +466,8 @@ def_map("<leader>lR", "<leader>cr", "   lsp 重命名", {remap = true})
 def_map("<leader>la", "<leader>ca", "   lsp 代码执行", {remap = true})
 --
 -- }}}
+
+
 
 -- 按键记录{{{
 -- echasnovski/mini.surround
@@ -517,3 +530,4 @@ def_map("<leader>la", "<leader>ca", "   lsp 代码执行", {remap = true})
 -- Q 取消当前
 -- \\\ 添加光标
 -- }}}
+-- %s/    /\t/g
