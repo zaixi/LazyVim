@@ -337,7 +337,7 @@ map({lhs = "<leader>xS", desc = "Trouble lsp" }, {"<leader>cS", "LSP references/
 map({lhs = "<c-f>", desc = "Scroll forward"}, {"<c-f>", "Scroll Forward", mode = { "i", "n", "s" }})
 map({lhs = "<c-b>", desc = "Scroll backward"}, {"<c-b>", "Scroll Backward", mode = { "i", "n", "s" }})
     -- go to  beginning and end
-def_map("<C-a>", "<home>", "跳到行首", {"n", "c", "i"})
+--def_map("<C-a>", "<home>", "跳到行首", {"n", "c", "i"})
 def_map("<C-e>", "<end>", "跳到行尾", {"n", "c", "i"})
 def_map("<C-h>", "<Left>", "  左移", {"c", "i"})
 def_map("<C-l>", "<Right>", " 右移", {"c", "i"})
@@ -416,7 +416,7 @@ map({lhs = "<S-Enter>", desc = "重定向Cmdline"}, {"<S-Enter>", "Redirect Cmdl
 def_map("q", ":call SmartClose() <cr>", "   关闭window", {silent = true, mode = {"v", "x", "n"}})
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
-def_map("p", 'p:let @+=@0<CR>:let @"=@0<CR>', "不要复制替换文本", { silent = true })
+--def_map("p", 'p:let @+=@0<CR>:let @"=@0<CR>', "不要复制替换文本", { silent = true })
 -- Clear search with <esc>
 map({lhs = "<esc>", desc = "  不高亮"}, {"<esc>", "Escape and Clear hlsearch", mode = {"i", "n", "s"}})
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -531,3 +531,29 @@ def_map("<leader>la", "<leader>ca", "   lsp 代码执行", {remap = true})
 -- \\\ 添加光标
 -- }}}
 -- %s/    /\t/g
+
+map({lhs = "<C-a>", desc = "Increment"}, { "<C-a>", "Increment", mode = {"n", "v"} })
+map({lhs = "<C-x>", desc = "Decrement"}, { "<C-x>", "Decrement", mode = {"n", "v"} })
+map({lhs = "g<C-a>", desc = "Increment"}, { "g<C-a>", "Increment", mode = {"n", "v"} })
+map({lhs = "g<C-x>", desc = "Decrement"}, { "g<C-x>", "Decrement", mode = {"n", "v"} })
+
+map({lhs = "<leader>p", desc = "Open Yank History"},                      { "<leader>p", "Open Yank History",         mode = {"n",  "x"} })
+map({lhs = "y",         desc = "Yank Tex"},                               { "y",         "Yank Text",                 mode = {"n",  "x"} })
+map({lhs = "p",         desc = "粘贴到光标后"},                           { "p",         "Put Text After Cursor",     mode = {"n",  "x"} })
+
+map({ lhs = "P",        desc = "粘贴到光标前"},                           { "P",         "Put Text Before Cursor",    mode = { "n", "x" } })
+map({ lhs = "gp",       desc = "Put Text After Selection"},               { "gp",        "Put Text After Selection",  mode = { "n", "x" } })
+map({ lhs = "gP",       desc = "Put Text Before Selection"},              { "gP",        "Put Text Before Selection", mode = { "n", "x" } })
+
+map({ lhs = "[y",       desc = "Cycle Forward Through Yank History"    }, { "[y",        "Cycle Forward Through Yank History"    })
+map({ lhs = "]y",       desc = "Cycle Backward Through Yank History"   }, { "]y",        "Cycle Backward Through Yank History"   })
+map({ lhs = "]p",       desc = "粘贴到下行"  },                           { "]p",        "Put Indented After Cursor (Linewise)"  })
+map({ lhs = "[p",       desc = "粘贴到上行" },                            { "[p",        "Put Indented Before Cursor (Linewise)" })
+map({ lhs = "]P",       desc = "粘贴到下行" },                            { "]P",        "Put Indented After Cursor (Linewise)"  })
+map({ lhs = "[P",       desc = "粘贴到上行" },                            { "[P",        "Put Indented Before Cursor (Linewise)" })
+map({ lhs = ">p",       desc = "粘贴到下行(加缩进)"                  },   { ">p",        "Put and Indent Right"                  })
+map({ lhs = "<p",       desc = "粘贴到下行(减缩进)"                   },  { "<p",        "Put and Indent Left"                   })
+map({ lhs = ">P",       desc = "粘贴到上行(加缩进)        "           },  { ">P",        "Put Before and Indent Right"           })
+map({ lhs = "<P",       desc = "粘贴到上行(减缩进)        "            }, { "<P",        "Put Before and Indent Left"            })
+map({ lhs = "=p",       desc = "粘贴到 Applying a Filter 后"           }, { "=p",        "Put After Applying a Filter"           })
+map({ lhs = "=P",       desc = "粘贴到 Applying a Filter 前"          },  { "=P",        "Put Before Applying a Filter"          })
