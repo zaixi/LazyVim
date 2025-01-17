@@ -9,9 +9,9 @@ vim.cmd('source ' .. vim.fn.stdpath("config") .. '/lua/config/edit.vim')
 -- lazygit
 map({lhs = "<leader>gg", desc = "Lazygit (root dir)"}, { "<leader>gg", "Lazygit (Root Dir)" })
 map({lhs = "<leader>gG", desc = "Lazygit (cwd)" }, { "<leader>gG", "Lazygit (cwd)" })
-map({lhs = "<leader>gf", desc = "Lazygit current file history" }, { "<leader>gf", "Lazygit Current File History" })
-map({lhs = "<leader>gl", desc = "Lazygit Log" }, { "<leader>gl", "Lazygit Log" })
-map({lhs = "<leader>gL", desc = "Lazygit Log (cwd)" }, { "<leader>gL", "Lazygit Log (cwd)" })
+map({lhs = "<leader>gf", desc = "Git current file history" }, { "<leader>gf", "Git Current File History" })
+map({lhs = "<leader>gl", desc = "Git Log" }, { "<leader>gl", "Git Log" })
+map({lhs = "<leader>gL", desc = "Git Log (cwd)" }, { "<leader>gL", "Git Log (cwd)" })
 del({"<leader>gB", "Git Browse (open)", mode = { "n", "x" }})
 -- git
 map({ lhs = "<leader>gc", desc = "commits" }, { "<leader>gc", "Commits" })
@@ -51,6 +51,7 @@ del({"gcO",  "Add Comment Above"})
 --   更新/ui {{{
 map({lhs = "<c-s>", desc = "切换Flash搜索"}, {"<c-s>", "Toggle Flash Search", mode = "c" })
 --del({"<c-s>", "Toggle Flash Search", mode = "c"})
+map({lhs = "<leader>uM", desc = "Render Markdown"}, {"<leader>um", "Render Markdown"})
 -- lazy
 def_map("<leader>u", nil, '  更新/ui')
 map({lhs = "<leader>um", desc = "  LSP/DAP 服务器"}, {"<leader>cm", "Mason"})
@@ -256,7 +257,8 @@ map({lhs = "<leader>sr", desc = "正则搜索替换"}, {"<leader>sr", "Search an
 
 --    切换 {{{
 def_map("<leader>t", nil, '  切换')
-def_map("<leader>ts", "<cmd>Translate ZH -output=floating  <CR>", "翻译选择文本", "v")
+--def_map("<leader>ts", "<cmd>Translate ZH -output=floating  <CR>", "翻译选择文本", "v")
+map({lhs = "<leader>ts", desc = "翻译选择文本"}, {"<leader>ts", "翻译选择文本", mode = { "x" }})
 
 map({lhs = "<leader>tt", desc = "标签浏览"}, {"<leader>cs", "Toggle Outline"})
 map({lhs = "<leader>tP", desc = "markdown预览"}, {"<leader>cp", "Markdown Preview"})
@@ -443,6 +445,33 @@ map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", m
 -- cmp
 map({lhs = "<S-Tab>", desc = "Jump Previous", expr = true }, {"<S-Tab>", "Jump Previous", mode = { "i", "s" }})
 map({lhs = "<Tab>", desc = "Jump Next"}, {"<Tab>", "Jump Next", mode = { "s" }})
+
+-- yank
+map({lhs = "<C-a>", desc = "Increment"}, { "<C-a>", "Increment", mode = {"n", "v"} })
+map({lhs = "<C-x>", desc = "Decrement"}, { "<C-x>", "Decrement", mode = {"n", "v"} })
+map({lhs = "g<C-a>", desc = "Increment"}, { "g<C-a>", "Increment", mode = {"n", "v"} })
+map({lhs = "g<C-x>", desc = "Decrement"}, { "g<C-x>", "Decrement", mode = {"n", "v"} })
+
+map({lhs = "<leader>p", desc = "Open Yank History"},                      { "<leader>p", "Open Yank History",         mode = {"n",  "x"} })
+map({lhs = "y",         desc = "Yank Tex"},                               { "y",         "Yank Text",                 mode = {"n",  "x"} })
+map({lhs = "p",         desc = "粘贴到光标后"},                           { "p",         "Put Text After Cursor",     mode = {"n",  "x"} })
+
+map({ lhs = "P",        desc = "粘贴到光标前"},                           { "P",         "Put Text Before Cursor",    mode = { "n", "x" } })
+map({ lhs = "gp",       desc = "Put Text After Selection"},               { "gp",        "Put Text After Selection",  mode = { "n", "x" } })
+map({ lhs = "gP",       desc = "Put Text Before Selection"},              { "gP",        "Put Text Before Selection", mode = { "n", "x" } })
+
+map({ lhs = "[y",       desc = "Cycle Forward Through Yank History"    }, { "[y",        "Cycle Forward Through Yank History"    })
+map({ lhs = "]y",       desc = "Cycle Backward Through Yank History"   }, { "]y",        "Cycle Backward Through Yank History"   })
+map({ lhs = "]p",       desc = "粘贴到下行"  },                           { "]p",        "Put Indented After Cursor (Linewise)"  })
+map({ lhs = "[p",       desc = "粘贴到上行" },                            { "[p",        "Put Indented Before Cursor (Linewise)" })
+map({ lhs = "]P",       desc = "粘贴到下行" },                            { "]P",        "Put Indented After Cursor (Linewise)"  })
+map({ lhs = "[P",       desc = "粘贴到上行" },                            { "[P",        "Put Indented Before Cursor (Linewise)" })
+map({ lhs = ">p",       desc = "粘贴到下行(加缩进)"                  },   { ">p",        "Put and Indent Right"                  })
+map({ lhs = "<p",       desc = "粘贴到下行(减缩进)"                   },  { "<p",        "Put and Indent Left"                   })
+map({ lhs = ">P",       desc = "粘贴到上行(加缩进)        "           },  { ">P",        "Put Before and Indent Right"           })
+map({ lhs = "<P",       desc = "粘贴到上行(减缩进)        "            }, { "<P",        "Put Before and Indent Left"            })
+map({ lhs = "=p",       desc = "粘贴到 Applying a Filter 后"           }, { "=p",        "Put After Applying a Filter"           })
+map({ lhs = "=P",       desc = "粘贴到 Applying a Filter 前"          },  { "=P",        "Put Before Applying a Filter"          })
 -- }}}
 
 -- quit/session{{{
@@ -467,6 +496,18 @@ def_map("<leader>la", "<leader>ca", "   lsp 代码执行", {remap = true})
 --
 -- }}}
 
+-- ai {{{
+def_map("<leader>a", nil, ' ai')
+map({lhs = "<leader>ac", desc = "切换对话界面"}, {"<leader>ac", "切换对话界面"} )
+map({lhs = "<leader>aT", desc = "翻译器"}, {"<leader>aT", "翻译"} )
+map({lhs = "<leader>ae", desc = "解释代码"}, {"<leader>ae", "解释代码", mode = { "v" }})
+map({lhs = "<leader>ad", desc = "生成docstring"}, {"<leader>ad", "生成docstring", mode = { "v" }})
+map({lhs = "<leader>au", desc = "API余额"}, {"<leader>au", "API余额"} )
+map({lhs = "<leader>ao", desc = "优化代码"}, {"<leader>ao", "优化代码", mode = { "x"}} )
+map({lhs = "<leader>ag", desc = "生成commit信息"}, {"<leader>ag", "生成commit信息", mode = { "n"}} )
+
+
+-- }}}
 
 
 -- 按键记录{{{
@@ -531,29 +572,3 @@ def_map("<leader>la", "<leader>ca", "   lsp 代码执行", {remap = true})
 -- \\\ 添加光标
 -- }}}
 -- %s/    /\t/g
-
-map({lhs = "<C-a>", desc = "Increment"}, { "<C-a>", "Increment", mode = {"n", "v"} })
-map({lhs = "<C-x>", desc = "Decrement"}, { "<C-x>", "Decrement", mode = {"n", "v"} })
-map({lhs = "g<C-a>", desc = "Increment"}, { "g<C-a>", "Increment", mode = {"n", "v"} })
-map({lhs = "g<C-x>", desc = "Decrement"}, { "g<C-x>", "Decrement", mode = {"n", "v"} })
-
-map({lhs = "<leader>p", desc = "Open Yank History"},                      { "<leader>p", "Open Yank History",         mode = {"n",  "x"} })
-map({lhs = "y",         desc = "Yank Tex"},                               { "y",         "Yank Text",                 mode = {"n",  "x"} })
-map({lhs = "p",         desc = "粘贴到光标后"},                           { "p",         "Put Text After Cursor",     mode = {"n",  "x"} })
-
-map({ lhs = "P",        desc = "粘贴到光标前"},                           { "P",         "Put Text Before Cursor",    mode = { "n", "x" } })
-map({ lhs = "gp",       desc = "Put Text After Selection"},               { "gp",        "Put Text After Selection",  mode = { "n", "x" } })
-map({ lhs = "gP",       desc = "Put Text Before Selection"},              { "gP",        "Put Text Before Selection", mode = { "n", "x" } })
-
-map({ lhs = "[y",       desc = "Cycle Forward Through Yank History"    }, { "[y",        "Cycle Forward Through Yank History"    })
-map({ lhs = "]y",       desc = "Cycle Backward Through Yank History"   }, { "]y",        "Cycle Backward Through Yank History"   })
-map({ lhs = "]p",       desc = "粘贴到下行"  },                           { "]p",        "Put Indented After Cursor (Linewise)"  })
-map({ lhs = "[p",       desc = "粘贴到上行" },                            { "[p",        "Put Indented Before Cursor (Linewise)" })
-map({ lhs = "]P",       desc = "粘贴到下行" },                            { "]P",        "Put Indented After Cursor (Linewise)"  })
-map({ lhs = "[P",       desc = "粘贴到上行" },                            { "[P",        "Put Indented Before Cursor (Linewise)" })
-map({ lhs = ">p",       desc = "粘贴到下行(加缩进)"                  },   { ">p",        "Put and Indent Right"                  })
-map({ lhs = "<p",       desc = "粘贴到下行(减缩进)"                   },  { "<p",        "Put and Indent Left"                   })
-map({ lhs = ">P",       desc = "粘贴到上行(加缩进)        "           },  { ">P",        "Put Before and Indent Right"           })
-map({ lhs = "<P",       desc = "粘贴到上行(减缩进)        "            }, { "<P",        "Put Before and Indent Left"            })
-map({ lhs = "=p",       desc = "粘贴到 Applying a Filter 后"           }, { "=p",        "Put After Applying a Filter"           })
-map({ lhs = "=P",       desc = "粘贴到 Applying a Filter 前"          },  { "=P",        "Put Before Applying a Filter"          })

@@ -109,6 +109,7 @@ return {
     -- 翻译软件，需要安装 soimort/translate-shell
     {
         "uga-rosa/translate.nvim",
+        enabled = false,
         cmd = "Translate",
         config = function()
             local options = {

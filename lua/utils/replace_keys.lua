@@ -210,8 +210,10 @@ function M.show_keys()
     for mode, keys in pairs(M.replace_keys) do
         for index, _ in pairs(keys) do
             if M.replace_keys_used[mode][index] == nil then
-                not_use_keys = not_use_keys or M.empty_map_table()
-                not_use_keys[mode][index] = M.replace_keys[mode][index]
+                if (index ~= "<leader>um") then
+                    not_use_keys = not_use_keys or M.empty_map_table()
+                    not_use_keys[mode][index] = M.replace_keys[mode][index]
+                end
             end
         end
     end
