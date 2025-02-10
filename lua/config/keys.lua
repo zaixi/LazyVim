@@ -293,7 +293,7 @@ def_map("<leader>tp", ":call paste2system() <CR>", "从系统粘贴")
 
 -- 窗口 {{{
 --def_map("<leader>w", nil, '  窗口')
-map({lhs = "<leader>w", desc = "窗口选择"}, {"<leader>w", "Windows"})
+--map({lhs = "<leader>w", desc = "窗口选择"}, {"<leader>w", "Windows"})
 map({lhs = "<leader>wE", desc = "窗口选择"}, {"<leader>uE", "Edgy Select Window"})
 map({lhs = "<leader>we", desc = "Edgy窗口切换"}, {"<leader>ue", "Edgy Toggle"})
 -- windows
