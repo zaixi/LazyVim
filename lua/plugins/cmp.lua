@@ -17,7 +17,22 @@ return
                         },
                     },
                     documentation = { window = { border = "rounded" } },
-                }
+                },
+                cmdline = {
+                    enabled = true,
+                    completion = {
+                        menu = { auto_show = true },
+                        ghost_text = { enabled = true },
+                    },
+                    sources = function()
+                        local type = vim.fn.getcmdtype()
+                        -- Search forward and backward
+                        if type == '/' or type == '?' then return { 'buffer' } end
+                        -- Commands
+                        if type == ':' or type == '@' then return { 'cmdline' } end
+                        return {}
+                    end,
+                },
             }
             return vim.tbl_deep_extend("force", opts, user_opts)
 
