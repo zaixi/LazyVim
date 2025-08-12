@@ -443,8 +443,10 @@ map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Increment Sel
 map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", mode = "x"})
 
 -- cmp
-map({lhs = "<S-Tab>", desc = "Jump Previous", expr = true }, {"<S-Tab>", "Jump Previous", mode = { "i", "s" }})
-map({lhs = "<Tab>", desc = "Jump Next"}, {"<Tab>", "Jump Next", mode = { "s" }})
+if vim.fn.has("nvim-0.11") == 0 then
+    map({lhs = "<S-Tab>", desc = "Jump Previous", expr = true }, {"<S-Tab>", "Jump Previous", mode = { "i", "s" }})
+    map({lhs = "<Tab>", desc = "Jump Next"}, {"<Tab>", "Jump Next", mode = { "s" }})
+end
 
 -- yank
 map({lhs = "<C-a>", desc = "Increment"}, { "<C-a>", "Increment", mode = {"n", "v"} })
