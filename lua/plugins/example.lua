@@ -83,7 +83,7 @@ return {
 
     -- coding {{{
     -- 注释
-    { "echasnovski/mini.comment", enabled = false },
+    { "nvim-mini/mini.comment", enabled = false },
     {
         "numToStr/Comment.nvim",
         event = "VeryLazy",
@@ -135,7 +135,7 @@ return {
         end
     },
     -- vim 中文文档
-    {"yianwillis/vimcdoc", event = "BufRead",},
+    -- {"yianwillis/vimcdoc", event = "BufRead",},
     -- sudo 读写文件
     {"lambdalisue/suda.vim", cmd = { "SudaWrite", "SudaRead"}},
     -- }}}
@@ -198,7 +198,7 @@ return {
     -- 在驼峰式和 Snek 式（以及 kebab 式）之间转换
     {"nicwest/vim-camelsnek", cmd = {"Snek", "Camel", "CamelB", "Kebab", "Screm"}},
     {
-        'echasnovski/mini.align',
+        'nvim-mini/mini.align',
         event = "VeryLazy",
         opts = function ()
             return {

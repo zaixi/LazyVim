@@ -24,6 +24,7 @@ return {
             let g:gutentags_plus_nomap = 1
             let g:gutentags_plus_use_telescope = 1
             let g:gutentags_define_advanced_commands = 1
+            let g:gutentags_exclude_project_root = [expand('~/.config/nvim')]
             " let g:gutentags_debug = 1
 	    " 关闭保存时自动更新
 	    let g:gutentags_generate_on_write = 0

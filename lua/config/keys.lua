@@ -10,9 +10,10 @@ vim.cmd('source ' .. vim.fn.stdpath("config") .. '/lua/config/edit.vim')
 map({lhs = "<leader>gg", desc = "Lazygit (root dir)"}, { "<leader>gg", "Lazygit (Root Dir)" })
 map({lhs = "<leader>gG", desc = "Lazygit (cwd)" }, { "<leader>gG", "Lazygit (cwd)" })
 map({lhs = "<leader>gf", desc = "Git current file history" }, { "<leader>gf", "Git Current File History" })
-map({lhs = "<leader>gl", desc = "Git Log" }, { "<leader>gl", "Git Log" })
+map({lhs = "<leader>gl", desc = "Git Log" }, { "<leader>gl", "Commits" })
 map({lhs = "<leader>gL", desc = "Git Log (cwd)" }, { "<leader>gL", "Git Log (cwd)" })
 del({"<leader>gB", "Git Browse (open)", mode = { "n", "x" }})
+del({"<leader>gS", "Git Stash"})
 -- git
 map({ lhs = "<leader>gc", desc = "commits" }, { "<leader>gc", "Commits" })
 map({ lhs = "<leader>gs", desc = "status" }, { "<leader>gs", "Status" })
@@ -122,6 +123,7 @@ map({lhs = "<leader>bP", desc = "删除non-pinned buffers"}, {"<leader>bP", "Del
 map({lhs = "<leader>bo", desc = "删除其他buffers"}, {"<leader>bo", "Delete Other Buffers"})
 map({lhs = "<leader>br", desc = "删除右边的buffers"}, {"<leader>br", "Delete Buffers to the Right"})
 map({lhs = "<leader>bl", desc = "删除左边的buffers"}, {"<leader>bl", "Delete Buffers to the Left"})
+map({lhs = "<leader>bj", desc = "选择 Buffer"}, {"<leader>bj", "Pick Buffer"})
 -- new file
 map({lhs = "<leader>bn", desc = "烙 新建 buffer" }, {"<leader>fn", "New File"})
 map({lhs = "<leader>be", desc = "buf 浏览器"}, {"<leader>be", "Buffer Explorer"})
@@ -139,7 +141,7 @@ def_map("<leader>c", nil, '   按键映射/code')
 map({lhs = "<leader>cd", desc = "Line诊断" }, {"<leader>cd", "Line Diagnostics"})
 -- formatting
 map({lhs = "<leader>cf", desc = "格式化"}, {"<leader>cf", "Format", mode = { "n", "v" }})
-map({lhs = "<leader>cF", desc = "格式化(嵌入代码块)"}, {"<leader>cF", "Format Injected Langs", mode = { "n", "v" }})
+map({lhs = "<leader>cF", desc = "格式化(嵌入代码块)"}, {"<leader>cF", "Format Injected Langs", mode = { "n", "x" }})
 -- }}}
 
 --   查找/文件 {{{
@@ -163,6 +165,7 @@ map({ lhs = "<leader>ff", desc = "查找文件(cwd)" }, { "<leader>fF", "Find Fi
 map({ lhs = "<leader>fr", desc = "查找近期文件" }, { "<leader>fr", "Recent" })
 map({ lhs = "<leader>fR", desc = "查找近期文件(cwd)" }, { "<leader>fR", "Recent (cwd)" })
 map({ lhs = "<leader>fp", desc = "Projects" }, { "<leader>fp", "Projects" })
+map({ lhs = "<leader>fB", desc = "所有 Buffer" }, { "<leader>fB", "Buffers (all)" })
 -- }}}
 
 -- {{{ floating terminal
@@ -217,13 +220,14 @@ map({ lhs = "<leader>sS", desc = "查找定义(Workspace)" }, { "<leader>sS", "G
 def_map("<leader>se", "<cmd>Telescope <CR>", "Telescope")
 map({ lhs = '<leader>s"', desc = "寄存器" }, { '<leader>s"', "Registers" })
 map({ lhs = "<leader>sa", desc = "自动命令" }, { "<leader>sa", "Auto Commands" })
-map({ lhs = "<leader>sb", desc = "Buffer" }, { "<leader>sb", "Buffer" })
+map({ lhs = "<leader>sb", desc = "Buffer" }, { "<leader>sb", "Buffer Lines" })
 map({ lhs = "<leader>sc", desc = "命令历史" }, { "<leader>sc", "Command History" })
 map({ lhs = "<leader>sC", desc = "命令" }, { "<leader>sC", "Commands" })
-map({ lhs = "<leader>sd", desc = "Document diagnostics" }, { "<leader>sd", "Document Diagnostics" })
-map({ lhs = "<leader>sD", desc = "Workspace diagnostics" }, { "<leader>sD", "Workspace Diagnostics" })
+map({ lhs = "<leader>sd", desc = "Document diagnostics" }, { "<leader>sd", "Diagnostics" })
+map({ lhs = "<leader>sD", desc = "Workspace diagnostics" }, { "<leader>sD", "Buffer Diagnostics" })
 map({ lhs = "<leader>sG", desc = "实时查找(root dir)" }, { "<leader>sg", "Grep (Root Dir)" })
 map({ lhs = "<leader>sg", desc = "实时查找(cwd)" }, { "<leader>sG", "Grep (cwd)" })
+map({ lhs = "<leader>s/", desc = "搜索历史" }, { "<leader>s/", "Search History" })
 map({ lhs = "<leader>sh", desc = "Help Pages" }, { "<leader>sh", "Help Pages" })
 map({ lhs = "<leader>sH", desc = "高亮组" }, { "<leader>sH", "Search Highlight Groups" })
 map({ lhs = "<leader>sj", desc = "Jumplist" }, { "<leader>sj", "Jumplist" })
@@ -238,8 +242,8 @@ map({ lhs = "<leader>sR", desc = "Resume" }, { "<leader>sR", "Resume" })
 def_map("<leader><space>", "<leader>sw", "查找当前符号", {remap = true})
 map({ lhs = "<leader>sW", desc = "查找当前符号(root dir)" }, { "<leader>sw", "Word (Root Dir)" })
 map({ lhs = "<leader>sw", desc = "查找当前符号(cwd)" }, { "<leader>sW", "Word (cwd)" })
-map({ lhs = "<leader>sW", desc = "查找字符串(root dir)" }, { "<leader>sw", "Selection (Root Dir)", mode = "v" })
-map({ lhs = "<leader>sw", desc = "查找字符串(cwd)" }, { "<leader>sW", "Selection (cwd)", mode = "v" })
+map({ lhs = "<leader>sW", desc = "查找字符串(root dir)" }, { "<leader>sw", "Selection (Root Dir)", mode = "x" })
+map({ lhs = "<leader>sw", desc = "查找字符串(cwd)" }, { "<leader>sW", "Selection (cwd)", mode = "x" })
 -- noice
 map({lhs = "<leader>sn", desc = "+noice"}, {"<leader>sn", "+noice"})
 map({lhs = "<leader>snl", desc = "Noice Last Message"}, {"<leader>snl", "Noice Last Message"})
@@ -252,7 +256,7 @@ map({lhs = "<leader>snt", desc = "Noice Telescope"}, {"<leader>snt", "Noice Pick
 map({lhs = "<leader>st", desc = "Todo"}, {"<leader>st", "Todo"})
 map({lhs = "<leader>sT", desc = "Todo/Fix/Fixme"}, {"<leader>sT", "Todo/Fix/Fixme"})
 
-map({lhs = "<leader>sr", desc = "正则搜索替换"}, {"<leader>sr", "Search and Replace", mode = { "n", "v" }})
+map({lhs = "<leader>sr", desc = "正则搜索替换"}, {"<leader>sr", "Search and Replace", mode = { "n", "x" }})
 -- }}}
 
 --    切换 {{{
@@ -435,11 +439,11 @@ map({lhs = "<C-s>", desc = "﬚  保存文件"}, {"<C-s>", "Save File", mode = {
 
 -- better indenting
 -- 使用 < > 在可视模式下缩进
-map({lhs = "<", "向左缩进"}, {"<", mode = "v"})
-map({lhs = ">", desc = "向右缩进"}, {">", mode = "v"})
+def_map("<", "<gv", "向左缩进", "x")
+def_map(">", ">gv", "向右缩进", "x")
 -- quit
 map({lhs = "<leader>qq", desc = "Quit all"}, {"<leader>qq", "Quit All" })
-map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Increment Selection"})
+map({lhs = "<c-space>", desc = "treesitter扩选"}, {"<c-space>", "Treesitter Incremental Selection", mode = { "n", "o", "x" }})
 map({lhs = "<bs>", desc = "treesitter缩选"}, {"<bs>", "Decrement Selection", mode = "x"})
 
 -- cmp
@@ -451,8 +455,8 @@ end
 -- yank
 map({lhs = "<C-a>", desc = "Increment"}, { "<C-a>", "Increment", mode = {"n", "v"} })
 map({lhs = "<C-x>", desc = "Decrement"}, { "<C-x>", "Decrement", mode = {"n", "v"} })
-map({lhs = "g<C-a>", desc = "Increment"}, { "g<C-a>", "Increment", mode = {"n", "v"} })
-map({lhs = "g<C-x>", desc = "Decrement"}, { "g<C-x>", "Decrement", mode = {"n", "v"} })
+map({lhs = "g<C-a>", desc = "Increment"}, { "g<C-a>", "Increment", mode = {"n", "x"} })
+map({lhs = "g<C-x>", desc = "Decrement"}, { "g<C-x>", "Decrement", mode = {"n", "x"} })
 
 map({lhs = "<leader>p", desc = "Open Yank History"},                      { "<leader>p", "Open Yank History",         mode = {"n",  "x"} })
 map({lhs = "y",         desc = "Yank Tex"},                               { "y",         "Yank Text",                 mode = {"n",  "x"} })

@@ -1,4 +1,5 @@
 local M = {}
+M.debug = vim.g.replace_keys_debug == true
 
 --复制按键映射表初始化函数，便于其他函数换了框架也能使用
 --- Get an empty table of mappings with a key for each map mode
@@ -106,11 +107,18 @@ function M.hook_replace_key(spec, mode, index, key)
         elseif replace.default.desc == "Toggle Outline" then
         -- 替换表和映射描述不一致就报错
         else
-            print(spec[1], "replace map error: ", vim.inspect(key), replace.default.desc)
+            if M.debug then
+              print(spec[1], "replace map error: ", vim.inspect(key), replace.default.desc)
+            end
         end
     else
+        if key.desc == nil then
+          return
+        end
         -- 不存在替换表就报错
-        print(spec[1], "no replace map: ", vim.inspect(key))
+        if M.debug then
+          print(spec[1], "no replace map: ", vim.inspect(key))
+        end
         M.default_keys = M.default_keys or M.empty_map_table()
         back_key["plug"] = spec[1]
         M.default_keys[mode][key[1]] = vim.tbl_extend("force", M.default_keys[mode][key[1]] or {}, back_key)
@@ -131,14 +139,17 @@ function M.hook_keys(spec)
     end
     spec.keys = spec.replace_keys
   elseif spec["keys"] then
-    if spec[1] ~= "echasnovski/mini.surround" and spec[1] ~= "ggandor/flit.nvim" then
-      print(spec[1].. "keys is function", vim.inspect(spec))
+    if spec[1] ~= "echasnovski/mini.surround" and spec[1] ~= "nvim-mini/mini.surround" and spec[1] ~= "ggandor/flit.nvim" then
+      if M.debug then
+        print(spec[1].. "keys is function", vim.inspect(spec))
+      end
     end
   end
   return spec
 end
 
 function M.init_replace_keys()
+    M.debug = vim.g.replace_keys_debug == true
     M.replace_keys = M.empty_map_table()
     M.replace_keys_used = M.empty_map_table()
     M.del_mappings = M.empty_map_table()
@@ -217,7 +228,7 @@ function M.show_keys()
             end
         end
     end
-    if type(not_use_keys) == "table" then
+    if M.debug and type(not_use_keys) == "table" then
         vim.notify("don't use replace keys in :" .. vim.inspect(not_use_keys), vim.log.levels.WARN)
     end
 
@@ -228,7 +239,7 @@ function M.show_keys()
             break
         end
     end
-    if have_default_keys then
+    if M.debug and have_default_keys then
         vim.notify("don't replace default keys in :" .. vim.inspect(have_default_keys), vim.log.levels.WARN)
     end
 

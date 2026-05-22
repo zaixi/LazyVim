@@ -38,7 +38,7 @@ end
 return
   {
     "Kurama622/llm.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "echasnovski/mini.diff" },
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "nvim-mini/mini.diff" },
     cmd = { "LLMSesionToggle", "LLMSelectedTextHandler", "LLMAppHandler" },
     config = function()
       local tools = require("llm.common.tools")
@@ -271,4 +271,3 @@ Based on this format, generate appropriate commit messages. Respond with message
       { "<leader>au", mode = "n", "<cmd>LLMAppHandler UserInfo<cr>", desc = "API余额" },
     },
   }
-
