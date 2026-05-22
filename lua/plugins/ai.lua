@@ -43,8 +43,13 @@ return
     config = function()
       local tools = require("llm.common.tools")
       require("llm").setup({
-        url = "https://api.deepseek.com/chat/completions",
-        model = "deepseek-chat",
+        --url = "https://api.siliconflow.cn/v1/chat/completions",
+        --model = "Qwen/Qwen2.5-7B-Instruct",
+        --model = "Pro/deepseek-ai/DeepSeek-V3",
+        -- model = "deepseek-ai/DeepSeek-V3",
+        url = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+        --model = "deepseek-r1-distill-qwen-7b",
+        model = "deepseek-v3",
         api_type = "openai",
         max_tokens = 4096,
         temperature = 0.3,
