@@ -48,7 +48,7 @@ require("lazy").setup({
     --{ import = "lazyvim.plugins.extras.coding.luasnip" },
     { import = "lazyvim.plugins.extras.util.startuptime" },
     { import = "lazyvim.plugins.extras.coding.mini-surround" },
-    -- { import = "lazyvim.plugins.extras.ai.copilot" },
+    { import = "lazyvim.plugins.extras.ai.copilot" },
     { import = "lazyvim.plugins.extras.ai.supermaven" },
     { import = "lazyvim.plugins.extras.ai.codeium" },
     --{ import = "lazyvim.plugins.extras.ai.tabnine" },
