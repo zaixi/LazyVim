@@ -4,7 +4,6 @@ return {
         "skywind3000/vim-gutentags",
         build = function()
             local chmod_cmd = "! chmod +x " .. vim.fn.stdpath "data" .. "/lazy/vim-gutentags/plat/unix/update_gtags.sh"
-            vim.cmd("! pip3 install pygments")
             vim.cmd(chmod_cmd)
         end,
         init = function()
